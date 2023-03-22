@@ -42,14 +42,35 @@ export const createPicked = async(req, res) => {
 
 export const updatePick = async( req, res ) => {
     const { id: _id } = req.params;
-    const { weight } = req.body;
+    const pick = req.body;
 
-    console.log(_id, weight);
+    // console.log(_id, weight);
     try {
-         if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(200).json(`The id is invalid`);
+         if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json(`The id is invalid`);
          
+         const updatedPick =  await PickingSchema.findByIdAndUpdate(_id, { ...pick, _id}, { new: true });
+
+         res.status(200).json(updatedPick);
                 
     } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
+
+export const deletePick = async(req,res) => {
+    const { id: _id } = req.params;
+
+    // console.log(_id)
+
+    try {
+        if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).json({ "message": "The id is invalid"});
+
+        await PickingSchema.findByIdAndDelete(_id);
+        
+        res.status(200).json({ "massage": "deleted successfully"});
+    } catch (error) {
         console.log(error);
+        res.status(404).json({ message: error.message });
     }
 }
