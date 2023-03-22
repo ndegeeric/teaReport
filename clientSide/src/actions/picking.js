@@ -1,0 +1,32 @@
+import * as api from '../api/index.js';
+import { GETPICKS, CREATE, UPDATE } from '../util/constants.js';
+
+export const getPicks = () => async(dispatch) => {
+    try {
+        const { data } = await api.getPicks();
+
+        dispatch({ type: GETPICKS, data });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const createPick = (pickData) => async(dispatch) => {
+    try {
+        const { data } = await api.createPick(pickData);
+        // console.log(data)
+        dispatch({ type: CREATE, data });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const updatePick = (pickData, _id) => async (dispatch ) => {
+    try {
+        const { data } = await api.updatePick(pickData, _id);
+
+        dispatch({ type: UPDATE, data });
+    } catch (error) {
+        console.log(error);
+    }
+}
