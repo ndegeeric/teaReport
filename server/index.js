@@ -22,7 +22,7 @@ app.use('/api/rcd', auth, pickingRoutes);
 
 app.get('/', (req,res)=> {
     res.send(`Careful, 250,000/day viruses detected`);
-});
+})
 
 const PORT = process.env.PORT || 5000;
 
