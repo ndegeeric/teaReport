@@ -1399,3 +1399,9 @@
 20230323	20:04:17	529ffe34-1f4c-4006-9ac4-1d513ecc168e	GET	http://localhost:3000	/api/rcd	undefined
 20230323	20:04:18	14c3c9a1-321e-468f-a146-f5caa53e4053	GET	http://localhost:3000	/api/rcd	undefined
 20230323	20:04:55	9eb3aaa7-12f0-41e5-89db-8c1eda08b8e2	GET	http://localhost:3000	/api/rcd	undefined
+20230324	21:25:38	4918c532-1adc-4dd1-b608-444276bd0105	GET	undefined	/api/rcd	undefined
+20230324	21:25:41	25304cc1-17da-48c5-9b0c-3da3695278a0	GET	undefined	/favicon.ico	undefined
+20230324	21:25:52	cb594712-cff8-4abc-ad8e-f4aedb9225a1	GET	undefined	/api/rcd	undefined
+20230324	21:26:45	ead963eb-58b6-41c6-b1b1-a0f011cb6754	GET	undefined	/	undefined
+20230324	21:27:12	9a35d7de-ab7e-42fe-9e53-88b85265a302	GET	undefined	/	undefined
+20230324	21:27:17	202fccc8-ed46-4e8a-a840-3bfd1965e61c	GET	undefined	/	undefined
