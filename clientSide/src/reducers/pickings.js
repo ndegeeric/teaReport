@@ -1,4 +1,4 @@
-import { GETPICKS, CREATE, UPDATE } from "../util/constants";
+import { GETPICKS, CREATE, UPDATE, DELETE } from "../util/constants";
 
 const picksReducer = (state=[], action) => {
     switch (action.type) {
@@ -9,11 +9,15 @@ const picksReducer = (state=[], action) => {
             return [ ...state, action.data ];
 
         case UPDATE:
-            return state.map((pick) => pick._id === action.data ? action.data : pick);
+            return state.picks.map((pick) => pick._id === action.data ? action.data : pick);
+
+        case DELETE:
+            return state.picks.filter(pick => pick._id !== action.data);
     
         default:
             return state;
     }
+
 }
 
 export default picksReducer;

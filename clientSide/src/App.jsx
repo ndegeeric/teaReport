@@ -6,15 +6,18 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 
-import { Auth, Home, Form } from './components';
+import { Auth, Home, Navbar } from './components';
 
 const App = () => {
   return (
+    <>
+    <Navbar />
     <Routes>
       <Route path='/' element={<Auth />} />
       <Route path='/home' element={<Home />} />
-      <Route path='/form' element={<Form/>} />
+      {/* <Route path='/form' element={<Form/>} /> */}
     </Routes>
+    </>
   )
 }
 

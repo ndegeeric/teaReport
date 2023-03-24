@@ -8,7 +8,7 @@ import { Paper, Grid, Typography, TextField, Button } from '@mui/material';
 
 
 const Auth = () => {
-    const initialState = [{ firstname: '', lastname: '', email: '', password: '', cpassword: '' }];
+    const initialState = { firstname: '', lastname: '', email: '', password: '', cpassword: '' }
     const [isSignup, setIsSignup] = useState(false);
     const [formData, setFormData] = useState(initialState);
 

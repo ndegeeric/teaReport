@@ -13,4 +13,5 @@ export const signIn = (formData) => API.post('/api/user/login', formData);
 export const signUp = (formData) => API.post('/api/user/signup', formData);
 export const getPicks = () => API.get('/api/rcd');
 export const createPick = (pickData) => API.post('/api/rcd', pickData);
-export const updatePick = (pickData, _id) => API.put('/api/rcd', {pickData, _id});
+export const updatePick = (updatedPick, _id) => API.patch(`/api/rcd/${ _id }`, updatedPick);
+export const deletePick = (_id) => API.delete(`api/rcd/${_id}`);

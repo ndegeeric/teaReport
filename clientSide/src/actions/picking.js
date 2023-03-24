@@ -1,5 +1,5 @@
 import * as api from '../api/index.js';
-import { GETPICKS, CREATE, UPDATE } from '../util/constants.js';
+import { GETPICKS, CREATE, UPDATE, DELETE } from '../util/constants.js';
 
 export const getPicks = () => async(dispatch) => {
     try {
@@ -21,11 +21,24 @@ export const createPick = (pickData) => async(dispatch) => {
     }
 }
 
-export const updatePick = (pickData, _id) => async (dispatch ) => {
+export const updatePick = (updatedPickData, _id) => async (dispatch ) => {
+    // console.log(pickData, _id);
     try {
-        const { data } = await api.updatePick(pickData, _id);
+        const { data } = await api.updatePick(updatedPickData, _id);
+
 
         dispatch({ type: UPDATE, data });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const deleteCurrentPick = (_id) => async (dispatch) => {
+    try {
+        await api.deletePick(_id);
+
+        dispatch({ type: DELETE, data: _id });
+        
     } catch (error) {
         console.log(error);
     }
