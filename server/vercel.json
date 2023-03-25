@@ -1,0 +1,11 @@
+{
+    "version": 2,
+    "name": "ontime-tea-record",
+    "builds": [
+      { "src": "script.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/server.js" }
+    ]
+  }
+  
