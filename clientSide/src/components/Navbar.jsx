@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Avatar } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
+import { Box, Typography, Avatar } from '@mui/material';
 
 import { LOGOUT } from '../util/constants';
 
@@ -33,23 +33,23 @@ const Navbar = () => {
 
 
   return (
-    <div className='navbar'>
-        <div className="left">
-            <div className="logo">
-                <img src="" alt='ontime'/>
+    <Box className=' bg-[#fcfcfc] flex items-center justify-between p-4'>
+        <Box className="flex gap-4 items-center">
+            <div className="w-[50px]">
+                <img className='w-[40px] h-[40px]' src="https://llamdodu.sirv.com/icodeThis/ontime.png" alt='ontime'/>
             </div>
-            <h1>Tea Picking Record</h1>
-        </div>
-        <div className="right">
-            <div className="profile">
+            <Typography variant='h4' component='h2' >Tea Picking Record</Typography>
+        </Box>
+        <Box className="flex gap-4 items-center">
+            <div className="flex gap-4 items-center font-semibold">
                 <p>{profile?.user.name }</p>
-                <Avatar className='avatar'>{profile?.user.name.charAt(0)}</Avatar>
+                <Avatar className='bg-[#1e36e8] '>{profile?.user.name.charAt(0)}</Avatar>
             </div>
             { 
-                profile ? <button onClick={logout}>Logout</button> : null
+                profile?.user ? <button className='bg-red-500 px-5 py-1 rounded-lg text-white font-semibold' onClick={logout}>Logout</button> : null
             }
-        </div>
-    </div>
+        </Box>
+    </Box>
   )
 }
 

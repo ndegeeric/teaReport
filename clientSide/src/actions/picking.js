@@ -4,6 +4,7 @@ import { GETPICKS, CREATE, UPDATE, DELETE } from '../util/constants.js';
 export const getPicks = () => async(dispatch) => {
     try {
         const { data } = await api.getPicks();
+        // console.log(data)
 
         dispatch({ type: GETPICKS, data });
     } catch (error) {
@@ -25,7 +26,6 @@ export const updatePick = (updatedPickData, _id) => async (dispatch ) => {
     // console.log(pickData, _id);
     try {
         const { data } = await api.updatePick(updatedPickData, _id);
-
 
         dispatch({ type: UPDATE, data });
     } catch (error) {

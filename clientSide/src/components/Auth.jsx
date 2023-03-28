@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { signIn, signUp } from '../actions/auth';
-import { Paper, Grid, Typography, TextField, Button } from '@mui/material';
+import { Box, Grid, Typography, TextField, Button } from '@mui/material';
 
 
 const Auth = () => {
@@ -25,10 +25,10 @@ const Auth = () => {
     }
     
   return (
-    <Paper>
-        <Typography>{ isSignup? 'Sign Up': 'Log In'}</Typography>
+    <Box className='bg-[#e6f2f0] flex flex-col gap-4 items-center justify-center min-h-[90vh]'>
+        <Typography variant='h5' component='h4'>{ isSignup? 'Sign Up': 'Log In'}</Typography>
         <Grid width='400px' marginBottom={3}>
-        <form>
+        <form className='flex flex-col gap-4'>
             {
                 isSignup ? <>
                     <TextField name="firstname" placeholder='First Name' onChange={(e)=> setFormData({ ...formData, firstname: e.target.value })} variant='outlined' value={formData.firstname} fullWidth />
@@ -37,19 +37,19 @@ const Auth = () => {
                 
             }
             <TextField name="email" placeholder='Email' onChange={(e)=> setFormData({ ...formData, email: e.target.value })} variant='outlined' value={formData.email} fullWidth />
-            <TextField name="password" placeholder='Password' onChange={(e)=> setFormData({ ...formData, password: e.target.value })} variant='outlined' value={formData.password} fullWidth/>
+            <TextField type="password" name="password" placeholder='Password' onChange={(e)=> setFormData({ ...formData, password: e.target.value })} variant='outlined' value={formData.password} fullWidth/>
             {
                 isSignup ? <>
-                    <TextField name="cpassword" placeholder='Confirm Password' onChange={(e)=> setFormData({ ...formData, cpassword: e.target.value})} variant='outlined' value={formData.cpassword} fullWidth />                
+                    <TextField type="password" name="cpassword" placeholder='Confirm Password' onChange={(e)=> setFormData({ ...formData, cpassword: e.target.value})} variant='outlined' value={formData.cpassword} fullWidth />                
                 </> : ''
             }
-            <Button onClick={handleSubmit} fullWidth>{ isSignup ? 'Save' : 'Log In'}</Button>
+            <Button variant='contained' onClick={handleSubmit} fullWidth>{ isSignup ? 'Save' : 'Log In'}</Button>
         </form>
         </Grid>
-            <button onClick={() => setIsSignup(prevIsSignup => !prevIsSignup)} >{
+            <Button className='text-transform: capitalize' onClick={() => setIsSignup(prevIsSignup => !prevIsSignup)} >{
                 isSignup ? 'Already a member Log In': 'Not a member Sign Up'
-            }</button>
-    </Paper>
+            }</Button>
+    </Box>
   )
 }
 
