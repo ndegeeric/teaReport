@@ -15,6 +15,7 @@ const Home = () => {
    
   }, [dispatch])
   
+  // console.log(currentId);
  
   return (
     <>
@@ -23,7 +24,7 @@ const Home = () => {
       {
       /* <Picks currentId={currentId} setCurrentId={setCurrentId} /> */}
       <Form currentId={currentId} setCurrentId={setCurrentId} />
-      <Table/>
+      <Table setCurrentId={setCurrentId}/>
       </Grid>
     }
     </>    

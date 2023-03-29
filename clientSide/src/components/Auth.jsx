@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { signIn, signUp } from '../actions/auth';
@@ -25,9 +24,9 @@ const Auth = () => {
     }
     
   return (
-    <Box className='bg-[#e6f2f0] flex flex-col gap-4 items-center justify-center min-h-[90vh]'>
+    <Box className='bg-[#e6f2f0] w-full flex flex-col gap-4 items-center justify-center min-h-[90vh]'>
         <Typography variant='h5' component='h4'>{ isSignup? 'Sign Up': 'Log In'}</Typography>
-        <Grid width='400px' marginBottom={3}>
+        <Grid sx={{ sm:{ width:'90%' }, width:'400px'}} marginBottom={3}>
         <form className='flex flex-col gap-4'>
             {
                 isSignup ? <>

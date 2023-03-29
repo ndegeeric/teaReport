@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { TextField, Box, Typography, Button, FormControl,FormHelperText } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { createPick, updatePick, getPicks } from '../actions/picking';
+import { createPick, updatePick } from '../actions/picking';
 
 const Form = ({ currentId, setCurrentId }) => {
   const initialState = { weight: '' }
   const [ pickData, setPickData ] = useState(initialState);
   const dispatch = useDispatch();
-  const location = useLocation();
 
-  // const formState = location?.state;
-
-  // setIsUpdate(formState?.isUpdate);
-  // setCurrentId(formState?.currentId);
   
-  const data = useSelector( state => currentId ? state?.picks.find( p =>  p._id === currentId ) : null );
+  
+  const data = useSelector( state => currentId ? state?.picks.picks.find( p =>  p._id === currentId ) : null );
 
+  console.log(currentId,data?.weight)
 
   useEffect(()=> {
     if( currentId ) {
-      setPickData({ ...pickData, weight: data?.weight })
+      setPickData(data)
     }
-  },[location]);
+  },[data]);
 
   const clearForm = () => {
     setCurrentId(0);
@@ -32,10 +28,8 @@ const Form = ({ currentId, setCurrentId }) => {
   const handleSubmit = () => {
     if(currentId){
       dispatch(updatePick(pickData, currentId));  
-      // dispatch(getPicks())    
     }else{
       dispatch(createPick(pickData));
-      // dispatch(getPicks());
     }
     setPickData(initialState);
     clearForm();
