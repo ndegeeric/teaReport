@@ -33,14 +33,14 @@ const Navbar = () => {
 
 
   return (
-    <Box className='bg-[#fcfcfc] flex flex-col-reverse md:flex-row items-center justify-between p-4'>
-        <Box className="flex gap-4 mt-5 md:mt-0 items-center">
-            <div className="w-[50px]">
-                <img className='w-[40px] h-[40px]' src="https://llamdodu.sirv.com/icodeThis/ontime.png" alt='ontime'/>
+    <Box className='bg-[#e6f2f0] sm:bg-[#fcfcfc] flex flex-col-reverse sm:flex-row items-center md:justify-end justify-between p-4'>
+        <Box className="flex flex-row gap-4 mt-5 sm:mt-0 items-center">
+            <div className="">
+               { profile && <img className='w-[40px] h-[40px]' src="https://llamdodu.sirv.com/icodeThis/ontime.png" alt='ontime'/>}
             </div>
-            <Typography className='text-xs md:text-xl font-[10px]' variant='h4' component='h2' >Tea Picking Record</Typography>
+            <Typography className='sm:text-xl w-[100vw] sm:w-auto text-center text-xs font-[10px]' variant='h4' component='h2' >Tea Picking Record</Typography>
         </Box>
-        <Box className="flex gap-4 items-center justify-between w-full">
+        <Box className="flex sm:flex-row flex-col-reverse gap-4 items-center sm:justify-end justify-between w-full">
             <div className="flex gap-4 items-center font-semibold">
                 <p>{profile?.user.name }</p>
                {profile && <Avatar className='bg-[#1e36e8] '>{profile?.user.name.charAt(0)}</Avatar>}

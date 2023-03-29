@@ -15,7 +15,7 @@ export const getPicks = () => async(dispatch) => {
 export const createPick = (pickData) => async(dispatch) => {
     try {
         const { data } = await api.createPick(pickData);
-        console.log(data)
+        // console.log(data)
         dispatch({ type: CREATE, data });
     } catch (error) {
         console.log(error?.response.data.message);
@@ -25,7 +25,7 @@ export const createPick = (pickData) => async(dispatch) => {
 export const updatePick = (updatedPickData, _id) => async (dispatch ) => {
     try {
         const { data } = await api.updatePick(updatedPickData, _id);
-        console.log(data);
+        // console.log(data);
 
         dispatch({ type: UPDATE, data });
     } catch (error) {

@@ -18,7 +18,7 @@ const Table = ({ setCurrentId }) => {
     <>
     {
     !picks ? <Loading /> :
-    <div className='m-10 w-full'>
+    <div className='md:m-10 m-1 w-full md:text-[16px] text-[12px]'>
         <table className='w-[100%]'>
             <thead><tr className=' w-full text-white'>{tableHeader}</tr></thead>
             <tbody>

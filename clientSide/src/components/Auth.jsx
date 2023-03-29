@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,6 +7,10 @@ import { Box, Grid, Typography, TextField, Button } from '@mui/material';
 
 
 const Auth = () => {
+    useEffect(() => {
+      localStorage.clear();     
+    }, [])
+    
     const initialState = { firstname: '', lastname: '', email: '', password: '', cpassword: '' }
     const [isSignup, setIsSignup] = useState(false);
     const [formData, setFormData] = useState(initialState);

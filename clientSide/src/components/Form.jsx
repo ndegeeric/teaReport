@@ -25,6 +25,7 @@ const Form = ({ currentId, setCurrentId }) => {
     setCurrentId(0);
   }
 
+  
   const handleSubmit = () => {
     if(currentId){
       dispatch(updatePick(pickData, currentId));  
@@ -34,19 +35,28 @@ const Form = ({ currentId, setCurrentId }) => {
     setPickData(initialState);
     clearForm();
   }
+  
+  const handleKeyPress = (e)=>{
+    if( e.key === 'Enter' ){
+      e.preventDefault();
+      handleSubmit();
+    }else {
+      return
+    }
+  };
 
   return (
-    <Box className='m-5 w-full'>
+    <Box className='md:m-5 m-1 w-full'>
       <Typography fontSize={25} fontWeight={700} color='#11142d'marginLeft={2} >{currentId ? 'Edit' : 'Enter' } the Picking data.</Typography>
       <Box mt={2.5} borderRadius='15px' padding='20px' bgcolor='#fcfcfc'>
-        <form style={{
-          marginTop: '20px', width: '100%', display: 'flex', flexDirection: 'column', gap: '20px'
+        <form style={{ 
+          md:{marginTop: '20px'}, marginTop: '0', width: '100%', display: 'flex', flexDirection: 'column', gap: '20px'
         }}>
           <FormControl>
-            <FormHelperText sx={{
+            <FormHelperText  sx={{
               fontWeight:500, margin:'10px 0', fontSize:16, color:'#11142d'
-            }}>Enter the Daily Harvest Weight:</FormHelperText>
-            <TextField sx={{
+            }}>Enter the Daily Harvest Weight: <span className='text-red-500 text-xl'>*</span></FormHelperText>
+            <TextField onKeyPress={(e)=>handleKeyPress(e)} sx={{
               width: '100%',
 
             }} name='weight' value={pickData.weight} onChange={(e)=> setPickData({ ...pickData, weight: e.target.value })} placeholder='123.50'/>

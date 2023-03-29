@@ -1,7 +1,7 @@
 import { GETPICKS, CREATE, UPDATE, DELETE } from "../util/constants";
 
 const picksReducer = (picks = [], action) => {
-    console.log(action.data)
+    // console.log(action.data)
     switch (action.type) {
         case GETPICKS:
             return  action.data;
