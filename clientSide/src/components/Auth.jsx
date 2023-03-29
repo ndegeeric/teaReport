@@ -26,8 +26,8 @@ const Auth = () => {
   return (
     <Box className='bg-[#e6f2f0] w-full flex flex-col gap-4 items-center justify-center min-h-[90vh]'>
         <Typography variant='h5' component='h4'>{ isSignup? 'Sign Up': 'Log In'}</Typography>
-        <Grid sx={{ sm:{ width:'90%' }, width:'400px'}} marginBottom={3}>
-        <form className='flex flex-col gap-4'>
+        <Grid className='md:w-[400px] width:[100%]' marginBottom={3}>
+        <form className='flex flex-col w-full gap-4 p-2'>
             {
                 isSignup ? <>
                     <TextField name="firstname" placeholder='First Name' onChange={(e)=> setFormData({ ...formData, firstname: e.target.value })} variant='outlined' value={formData.firstname} fullWidth />
