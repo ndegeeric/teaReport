@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: 'https://ontime-tea-report.vercel.app/'});
+const API = axios.create({ baseURL: 'http://localhost:5001/'});
 
 API.interceptors.request.use((req)=> {
     if (localStorage.getItem('profile')) {

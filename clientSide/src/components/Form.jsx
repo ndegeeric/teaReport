@@ -11,9 +11,9 @@ const Form = ({ currentId, setCurrentId }) => {
 
   
   
-  const data = useSelector( state => currentId ? state?.picks.picks.find( p =>  p._id === currentId ) : null );
+  const data = useSelector( state => currentId ? state?.picks.find( p =>  p._id === currentId ) : null );
 
-  console.log(currentId,data?.weight)
+  // console.log(currentId,data?.weight)
 
   useEffect(()=> {
     if( currentId ) {

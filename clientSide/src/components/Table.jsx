@@ -9,7 +9,7 @@ import { deleteCurrentPick } from '../actions/picking';
 
 const Table = ({ setCurrentId }) => {
     const dispatch = useDispatch();                                                                                                                                                                                          useDispatch()
-    const {picks} = useSelector(state => state.picks);
+    const { picks } = useSelector(state => state);
     const tableHeaderData = ['','Date', 'Weight', 'Picking Costs', 'Other expenses',''];
 
     const tableHeader =  tableHeaderData.map((item, i) => ( <th className='bg-blue-700 px-1.5 py-1' key={i}>{item}</th> ));
@@ -30,7 +30,7 @@ const Table = ({ setCurrentId }) => {
                         <td className='text-center py-1 px-1.5'>{item.weight}</td>
                         <td className='text-right py-1 px-1.5'>{(item.weight*12).toFixed(2)}</td>
                         <td className='text-center py-1 px-1.5'>
-                          <button onClick={() =>{}}>delete</button>
+                          <button onClick={()=>dispatch(deleteCurrentPick(item._id))}>delete</button>
                         </td>
                         <td className='py-1 px-1.5'><button onClick={()=> setCurrentId(item._id)}>{<MoreHorizOutlined/>}</button></td>
                       </tr>

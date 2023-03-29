@@ -29,10 +29,10 @@ export const createPicked = async(req, res) => {
     const { weight } = req.body;
 
     try {
-        const newData = new PickingSchema({ weight });
-        await newData.save();
+        const newPick = new PickingSchema({ weight });
+        await newPick.save();
     
-        res.status(200).json({ message: `data saved`});
+        res.status(200).json(newPick);
         
     } catch (error) {
         res.status(404).json({ message: error.message });
