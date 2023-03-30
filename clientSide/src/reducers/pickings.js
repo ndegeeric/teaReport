@@ -1,4 +1,4 @@
-import { GETPICKS, CREATE, UPDATE, DELETE } from "../util/constants";
+import { GETPICKS, CREATE, UPDATE, DELETE, AUTH_ERROR } from "../util/constants";
 
 const picksReducer = (picks = [], action) => {
     // console.log(action.data)
@@ -14,6 +14,9 @@ const picksReducer = (picks = [], action) => {
 
         case DELETE:
             return picks.filter(pick => pick._id !== action.data);
+
+        case AUTH_ERROR:
+            return picks;
     
         default:
             return picks;

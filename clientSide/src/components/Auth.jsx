@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { signIn, signUp } from '../actions/auth';
 import { Box, Grid, Typography, TextField, Button } from '@mui/material';
-
+import ErrorAuth  from './ErrorAuth';
 
 const Auth = () => {
     useEffect(() => {
@@ -14,6 +14,7 @@ const Auth = () => {
     const initialState = { firstname: '', lastname: '', email: '', password: '', cpassword: '' }
     const [isSignup, setIsSignup] = useState(false);
     const [formData, setFormData] = useState(initialState);
+    const [errorHandler, setErrorHandler] = useState({hasError: false, message: ""})
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -21,9 +22,9 @@ const Auth = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (isSignup) {
-            dispatch(signUp(formData, navigate));
+            dispatch(signUp(formData, navigate, setErrorHandler));
         } else {
-            dispatch(signIn(formData, navigate));
+            dispatch(signIn(formData, navigate, setErrorHandler));
         }
     }
     
@@ -31,6 +32,7 @@ const Auth = () => {
     <Box className='bg-[#e6f2f0] w-full flex flex-col gap-4 items-center justify-center min-h-[90vh]'>
         <Typography variant='h5' component='h4'>{ isSignup? 'Sign Up': 'Log In'}</Typography>
         <Grid className='md:w-[400px] width:[100%]' marginBottom={3}>
+            <ErrorAuth errorHandler={errorHandler} setErrorHandler={setErrorHandler} />
         <form className='flex flex-col w-full gap-4 p-2'>
             {
                 isSignup ? <>

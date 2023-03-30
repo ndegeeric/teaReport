@@ -1,5 +1,5 @@
 import * as api from '../api/index.js';
-import { GETPICKS, CREATE, UPDATE, DELETE } from '../util/constants.js';
+import { GETPICKS, CREATE, UPDATE, DELETE, AUTH_ERROR } from '../util/constants.js';
 
 export const getPicks = () => async(dispatch) => {
     try {
@@ -12,24 +12,40 @@ export const getPicks = () => async(dispatch) => {
     }
 }
 
-export const createPick = (pickData) => async(dispatch) => {
+export const createPick = (pickData, setErrorHandler) => async(dispatch) => {
     try {
         const { data } = await api.createPick(pickData);
         // console.log(data)
         dispatch({ type: CREATE, data });
     } catch (error) {
-        console.log(error?.response.data.message);
+        if(error?.response?.data?.message){
+            dispatch({
+                type: AUTH_ERROR,
+                message: error?.response?.data?.message
+            })
+            setErrorHandler({ hasError: true, message: error?.response?.data?.message});
+        }else{
+            setErrorHandler({ hasError: true, message: `Server can not be reached.`});
+        }
     }
 }
 
-export const updatePick = (updatedPickData, _id) => async (dispatch ) => {
+export const updatePick = (updatedPickData, _id, setErrorHandler) => async (dispatch ) => {
     try {
         const { data } = await api.updatePick(updatedPickData, _id);
         // console.log(data);
 
         dispatch({ type: UPDATE, data });
     } catch (error) {
-        console.log(error?.response.data.message);
+        if(error?.response?.data?.message){
+            dispatch({
+                type: AUTH_ERROR,
+                message: error?.response?.data?.message
+            })
+            setErrorHandler({ hasError: true, message: error?.response?.data?.message});
+        }else {
+            setErrorHandler({ hasError: true, message: `Server can not be reached` })
+        }
     }
 }
 

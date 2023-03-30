@@ -1,21 +1,29 @@
 import * as api from '../api/index.js';
-import { AUTH } from '../util/constants';
+import { AUTH, AUTH_ERROR } from '../util/constants';
 
-export const signIn = (formData, navigate) => async(dispatch) => {
+
+export const signIn = (formData, navigate, setErrorHandler) => async(dispatch) => {
     try {
         const { data } = await api.signIn(formData);
-        // console.log(formData)
 
         dispatch({ type: AUTH, data });
 
         navigate('/home')
         
     } catch (error) {
-        console.log(error);
+        if(error?.response?.data?.message){
+            dispatch({
+                type:AUTH_ERROR,
+                data: error.response.data.message,
+            }) 
+            setErrorHandler({ hasError: true, message: error?.response?.data?.message})
+        }else {
+            setErrorHandler({ hasError: true, message: `The server can not be reached`});
+        }
     }
 }
 
-export const signUp = (formData, navigate) => async(dispatch) => {
+export const signUp = (formData, navigate, setErrorHandler) => async(dispatch) => {
     try {
         const { data } = await api.signUp(formData);
 
@@ -24,6 +32,12 @@ export const signUp = (formData, navigate) => async(dispatch) => {
         navigate('/home')
     
     } catch (error) {
-        console.log(error);
+       if (error?.response?.data?.message) {
+        dispatch({
+            type: AUTH_ERROR,
+            data: error?.response?.data?.message
+        })
+        setErrorHandler({ hasError: true, message: error?.response?.data?.message });
+       } 
     }
 }

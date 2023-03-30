@@ -3,22 +3,22 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Box, Typography, Button, FormControl,FormHelperText } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPick, updatePick } from '../actions/picking';
+import {ErrorAuth} from '../components';
 
 const Form = ({ currentId, setCurrentId }) => {
   const initialState = { weight: '' }
   const [ pickData, setPickData ] = useState(initialState);
   const dispatch = useDispatch();
-
+  const [errorHandler, setErrorHandler] = useState({hasError: false, message: ""})
   
   
   const data = useSelector( state => currentId ? state?.picks.find( p =>  p._id === currentId ) : null );
-
-  // console.log(currentId,data?.weight)
 
   useEffect(()=> {
     if( currentId ) {
       setPickData(data)
     }
+    // eslint-disable-next-line
   },[data]);
 
   const clearForm = () => {
@@ -28,9 +28,9 @@ const Form = ({ currentId, setCurrentId }) => {
   
   const handleSubmit = () => {
     if(currentId){
-      dispatch(updatePick(pickData, currentId));  
+      dispatch(updatePick(pickData, currentId, setErrorHandler));  
     }else{
-      dispatch(createPick(pickData));
+      dispatch(createPick(pickData, setErrorHandler));
     }
     setPickData(initialState);
     clearForm();
@@ -40,14 +40,13 @@ const Form = ({ currentId, setCurrentId }) => {
     if( e.key === 'Enter' ){
       e.preventDefault();
       handleSubmit();
-    }else {
-      return
     }
   };
 
   return (
     <Box className='md:m-5 m-1 w-full'>
       <Typography fontSize={25} fontWeight={700} color='#11142d'marginLeft={2} >{currentId ? 'Edit' : 'Enter' } the Picking data.</Typography>
+      <ErrorAuth errorHandler={errorHandler} setErrorHandler={setErrorHandler} />
       <Box mt={2.5} borderRadius='15px' padding='20px' bgcolor='#fcfcfc'>
         <form style={{ 
           md:{marginTop: '20px'}, marginTop: '0', width: '100%', display: 'flex', flexDirection: 'column', gap: '20px'
