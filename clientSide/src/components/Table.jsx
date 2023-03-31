@@ -18,7 +18,7 @@ const Table = ({ setCurrentId }) => {
     <>
     {
     !picks ? <Loading /> :
-    <div className='md:m-10 m-1 w-full md:text-[16px] text-[12px]'>
+    <div className='sm:m-7 m-1 w-full sm:text-[16px] text-[12px]'>
         <table className='w-[100%]'>
             <thead><tr className=' w-full text-white'>{tableHeader}</tr></thead>
             <tbody>
@@ -28,7 +28,7 @@ const Table = ({ setCurrentId }) => {
                         <td className='text-center py-1 px-1.5' >{i+1}</td>
                         <td className='text-center py-1 px-1.5'>{dateFormatter(item.createdAt)}</td>
                         <td className='text-center py-1 px-1.5'>{item.weight}</td>
-                        <td className='text-right py-1 px-1.5'>{(item.weight*12).toFixed(2)}</td>
+                        <td className='text-right py-1 px-7 md:p-50'>{(item.weight*12).toFixed(2)}</td>
                         <td className='text-center py-1 px-1.5'>
                           <button onClick={()=>dispatch(deleteCurrentPick(item._id))}>delete</button>
                         </td>

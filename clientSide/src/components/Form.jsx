@@ -23,6 +23,7 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const clearForm = () => {
     setCurrentId(0);
+    setPickData(initialState);
   }
 
   
@@ -44,10 +45,10 @@ const Form = ({ currentId, setCurrentId }) => {
   };
 
   return (
-    <Box className='md:m-5 m-1 w-full'>
+    <Box className='md:m-5 m-1 mb-5 w-full'>
       <Typography fontSize={25} fontWeight={700} color='#11142d'marginLeft={2} >{currentId ? 'Edit' : 'Enter' } the Picking data.</Typography>
       <ErrorAuth errorHandler={errorHandler} setErrorHandler={setErrorHandler} />
-      <Box mt={2.5} borderRadius='15px' padding='20px' bgcolor='#fcfcfc'>
+      <Box className='sm:mt-2.5 mt-1 sm:p-[20px]' borderRadius='15px' bgcolor='#fcfcfc'>
         <form style={{ 
           md:{marginTop: '20px'}, marginTop: '0', width: '100%', display: 'flex', flexDirection: 'column', gap: '20px'
         }}>
@@ -58,9 +59,10 @@ const Form = ({ currentId, setCurrentId }) => {
             <TextField onKeyPress={(e)=>handleKeyPress(e)} sx={{
               width: '100%',
 
-            }} name='weight' value={pickData.weight} onChange={(e)=> setPickData({ ...pickData, weight: e.target.value })} placeholder='123.50'/>
+            }} name='weight' value={pickData.weight} onChange={(e)=> setPickData({ ...pickData, weight: e.target.value })} placeholder='123.50' fullWidth/>
           </FormControl>
-          <Button variant='contained' onClick={handleSubmit}>Save</Button>
+          <Button variant='contained' onClick={handleSubmit} fullWidth>Save</Button>
+          <Button onClick={clearForm}>Clear Form</Button>
         </form>
       </Box>
     </Box>

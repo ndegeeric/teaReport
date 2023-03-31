@@ -29,7 +29,7 @@ const Auth = () => {
     }
     
   return (
-    <Box className='bg-[#e6f2f0] w-full flex flex-col gap-4 items-center justify-center min-h-[90vh]'>
+    <Box className='bg-[#e6f2f0] w-full flex flex-col gap-4 items-center justify-center min-h-screen'>
         <Typography variant='h5' component='h4'>{ isSignup? 'Sign Up': 'Log In'}</Typography>
         <Grid className='md:w-[400px] width:[100%]' marginBottom={3}>
             <ErrorAuth errorHandler={errorHandler} setErrorHandler={setErrorHandler} />
