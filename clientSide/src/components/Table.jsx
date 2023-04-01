@@ -7,9 +7,14 @@ import { Loading } from '../components';
 import { deleteCurrentPick } from '../actions/picking';
 
 
-const Table = ({ setCurrentId }) => {
+const Table = ({ setCurrentId, setShowForm }) => {
     const dispatch = useDispatch();                                                                                                                                                                                          useDispatch()
     const { picks } = useSelector(state => state);
+
+    const setId =(id) => {
+      setCurrentId(id);
+      setShowForm(true)
+    }
     const tableHeaderData = ['','Date', 'Weight', 'Picking Costs', 'Other expenses',''];
 
     const tableHeader =  tableHeaderData.map((item, i) => ( <th className='bg-blue-700 px-1.5 py-1' key={i}>{item}</th> ));
@@ -32,7 +37,7 @@ const Table = ({ setCurrentId }) => {
                         <td className='text-center py-1 px-1.5'>
                           <button onClick={()=>dispatch(deleteCurrentPick(item._id))}>delete</button>
                         </td>
-                        <td className='py-1 px-1.5'><button onClick={()=> setCurrentId(item._id)}>{<MoreHorizOutlined/>}</button></td>
+                        <td className='py-1 px-1.5'><button onClick={()=> {setId(item._id)}}>{<MoreHorizOutlined/>}</button></td>
                       </tr>
                     ))
                     }

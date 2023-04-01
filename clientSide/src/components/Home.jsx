@@ -20,7 +20,7 @@ const Home = () => {
     <Button className='mt-5 align-right' onClick={()=>setShowForm((prevState) => !prevState)}>{ showForm ? 'Hide Form' : 'Show Form' }</Button>
     {
       <Grid container >
-      { showForm ? <Form currentId={currentId} setCurrentId={setCurrentId} /> : ''}
+      { showForm ? <Form currentId={currentId} setCurrentId={setCurrentId} setShowForm={setShowForm} /> : ''}
       <Table setCurrentId={setCurrentId}/>
       </Grid>
     }

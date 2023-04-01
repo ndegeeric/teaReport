@@ -39,7 +39,7 @@ const Navbar = () => {
                 <img className='w-[70px] h-[60px]' src="https://llamdodu.sirv.com/icodeThis/ontime.png" alt='ontime'/>
             </div>
             <div className=" flex justify-center w-full">
-            <Typography className='sm:text-xl w-[100vw] sm:w-auto text-center text-[10px]' variant='h4' component='h2' >Tea Picking Record</Typography>
+            <Typography className='text-[35px] w-[100vw] sm:w-auto text-center '  >Tea Picking Record</Typography>
             </div>
         </Box>
         <Box className="flex gap-4 items-center sm:justify-end justify-between w-full">

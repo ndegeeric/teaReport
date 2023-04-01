@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createPick, updatePick } from '../actions/picking';
 import {ErrorAuth} from '../components';
 
-const Form = ({ currentId, setCurrentId }) => {
+const Form = ({ currentId, setCurrentId, setShowForm }) => {
   const initialState = { weight: '' }
   const [ pickData, setPickData ] = useState(initialState);
   const dispatch = useDispatch();
@@ -24,12 +24,13 @@ const Form = ({ currentId, setCurrentId }) => {
   const clearForm = () => {
     setCurrentId(0);
     setPickData(initialState);
+    setShowForm(false);
   }
 
   
   const handleSubmit = () => {
     if(currentId){
-      dispatch(updatePick(pickData, currentId, setErrorHandler));  
+      dispatch(updatePick(pickData, currentId, setErrorHandler));
     }else{
       dispatch(createPick(pickData, setErrorHandler));
     }
