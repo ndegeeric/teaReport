@@ -13,9 +13,9 @@ const Table = ({ setCurrentId, setShowForm }) => {
 
     const setId =(id) => {
       setCurrentId(id);
-      setShowForm(true)
+      setShowForm(true);
     }
-    const tableHeaderData = ['','Date', 'Weight', 'Picking Costs', 'Other expenses',''];
+    const tableHeaderData = ['','Date', 'Weight', 'Picking Costs', '',''];
 
     const tableHeader =  tableHeaderData.map((item, i) => ( <th className='bg-blue-700 px-1.5 py-1' key={i}>{item}</th> ));
    
