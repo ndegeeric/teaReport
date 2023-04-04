@@ -21,7 +21,7 @@ const Home = () => {
     {
       <Grid container >
       { showForm ? <Form currentId={currentId} setCurrentId={setCurrentId} setShowForm={setShowForm} /> : ''}
-      <Table setCurrentId={setCurrentId}/>
+      <Table setCurrentId={setCurrentId} setShowForm={ setShowForm}/>
       </Grid>
     }
     </>    
