@@ -19,6 +19,15 @@ const App = () => {
       localStorage.clear();
       navigate('/');
     }
+    
+    const unLoad = (e)=> {
+      e.preventDefault();
+      e.returnValue = '';
+      return '';
+    };
+
+    window.addEventListener("beforeunload", unLoad);
+    return () => window.removeEventListener("beforeunload", unLoad)
     // eslint-disable-next-line 
   },[]);
 

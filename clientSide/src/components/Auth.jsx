@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { signIn, signUp } from '../actions/auth';
-import { Box, Grid, Typography, TextField, Button } from '@mui/material';
+import { Box, Grid, Typography, TextField, Button, } from '@mui/material';
 import ErrorAuth  from './ErrorAuth';
 
 const Auth = () => {
@@ -28,6 +28,12 @@ const Auth = () => {
         }
     }
     
+    const handleKeyPress = (e) => {
+        if(e.key==='Enter'){
+            handleSubmit(e);
+        }
+    }
+
   return (
     <Box className='bg-[#e6f2f0] w-full flex flex-col gap-4 items-center justify-center min-h-screen'>
         <Typography variant='h5' component='h4'>{ isSignup? 'Sign Up': 'Log In'}</Typography>
@@ -42,7 +48,7 @@ const Auth = () => {
                 
             }
             <TextField name="email" placeholder='Email' onChange={(e)=> setFormData({ ...formData, email: e.target.value })} variant='outlined' value={formData.email} fullWidth />
-            <TextField type="password" name="password" placeholder='Password' onChange={(e)=> setFormData({ ...formData, password: e.target.value })} variant='outlined' value={formData.password} fullWidth/>
+            <TextField onKeyPress={(e)=> handleKeyPress(e)} type="password" name="password" placeholder='Password' onChange={(e)=> setFormData({ ...formData, password: e.target.value })} variant='outlined' value={formData.password} fullWidth/>
             {
                 isSignup ? <>
                     <TextField type="password" name="cpassword" placeholder='Confirm Password' onChange={(e)=> setFormData({ ...formData, cpassword: e.target.value})} variant='outlined' value={formData.cpassword} fullWidth />                
