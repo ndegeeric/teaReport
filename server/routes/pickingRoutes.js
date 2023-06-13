@@ -8,6 +8,6 @@ router.get('/', getPicked);
 router.post('/', createPicked);
 router.patch('/:id', updatePick);
 router.delete('/:id', deletePick);
-router.post('/mt', monthlyTotals)
+router.post('/mt', (req, res) => res.json({ "message": "monthly Total" }))
 
 export default router;
