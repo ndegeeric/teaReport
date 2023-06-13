@@ -6,8 +6,8 @@ const router = express.Router();
 
 router.get('/:id', getOnePick);
 router.get('/', getPicked);
-router.post('/monTtl', monthlyTotals);
 router.post('/', createPicked);
+router.post('/monTtl', monthlyTotals);
 router.patch('/:id', updatePick);
 router.delete('/:id', deleteValidation, deletePick);
 
