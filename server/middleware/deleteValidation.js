@@ -4,9 +4,9 @@ export const deleteValidation = (req, res, next) => {
     if (!id) {
         return res.status(400).send({ message: 'Id is required'})
     }
-     else {
-        alert('Sure you want to delete this Entry?');
-    }
+    //  else {
+        // alert('Sure you want to delete this Entry?');
+    // }
 
     next()
 }
