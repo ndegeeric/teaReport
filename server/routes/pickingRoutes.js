@@ -9,6 +9,6 @@ router.get('/', getPicked);
 router.post('/', createPicked);
 // router.post('/monTtl', monthlyTotals);
 router.patch('/:id', updatePick);
-router.delete('/:id', deleteValidation, deletePick);
+router.delete('/:id', deletePick);
 
 export default router;
