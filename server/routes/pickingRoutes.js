@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.get('/:id', getOnePick);
 router.get('/', getPicked);
+router.post('/monTtl', (req, res) => res.json({ "message": "monthly Total" }));
 router.post('/', createPicked);
 router.patch('/:id', updatePick);
 router.delete('/:id', deleteValidation, deletePick);
-router.post('/mt', (req, res) => res.json({ "message": "monthly Total" }))
 
 export default router;
