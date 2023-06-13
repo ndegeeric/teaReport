@@ -70,6 +70,19 @@ export const deletePick = async(req,res) => {
         
         res.status(200).json({ "massage": "deleted successfully"});
     } catch (error) {
+        // console.log(error);
+        res.status(404).json({ message: error.message });
+    }
+}
+
+export const monthlyTotals = async(req, res) => {
+    const dateRange = req.body.dateRange || {};
+
+    try {
+        const data = await PickingSchema.find({ dateRange });
+
+        res.status(200).json({ data });
+    } catch (error) {
         console.log(error);
         res.status(404).json({ message: error.message });
     }
