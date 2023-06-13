@@ -79,7 +79,31 @@ export const monthlyTotals = async(req, res) => {
     const dateRange = req.body.dateRange || {};
 
     try {
-        const data = await PickingSchema.find({ dateRange });
+        const data = await PickingSchema.aggregate(
+            [
+                {
+                  '$match': {
+                    'createdAt': {
+                      '$gte': new Date('Mon, 01 May 2023 00:00:00 GMT'), 
+                      '$lte': new Date('Wed, 31 May 2023 23:59:46 GMT')
+                    }
+                  }
+                }, {
+                  '$group': {
+                    '_id': {
+                      '$cond': [
+                        {
+                          'lt': ''
+                        }, '0-30', '0'
+                      ]
+                    }, 
+                    'monthlyTotal': {
+                      '$sum': '$weight'
+                    }
+                  }
+                }
+              ]
+        );
 
         res.status(200).json({ data });
     } catch (error) {
