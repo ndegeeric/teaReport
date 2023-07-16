@@ -8,7 +8,7 @@ export const signIn = (formData, navigate, setErrorHandler) => async(dispatch) =
 
         dispatch({ type: AUTH, data });
 
-        navigate('/home')
+        navigate('/dashboard')
         
     } catch (error) {
         if(error?.response?.data?.message){
@@ -29,7 +29,7 @@ export const signUp = (formData, navigate, setErrorHandler) => async(dispatch) =
 
         dispatch({ type: AUTH, data });
 
-        navigate('/home')
+        navigate('/dashboard');
     
     } catch (error) {
        if (error?.response?.data?.message) {
@@ -40,4 +40,10 @@ export const signUp = (formData, navigate, setErrorHandler) => async(dispatch) =
         setErrorHandler({ hasError: true, message: error?.response?.data?.message });
        } 
     }
+}
+
+export const logout = (navigate) => async(dispatch) => {
+    dispatch({ type: 'LOGOUT'})
+
+    navigate('/')
 }

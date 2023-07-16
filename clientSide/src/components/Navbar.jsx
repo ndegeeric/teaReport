@@ -1,55 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import decode from 'jwt-decode';
 import { Box, Typography, Avatar } from '@mui/material';
+import { MenuOutlined, CloseOutlined, SearchOutlined, NotificationAddOutlined } from '@mui/icons-material';
 
-import { LOGOUT } from '../util/constants';
+import { logout } from '../actions/auth.js'
+import { AsideLink } from '../components';
 
-const Navbar = () => {
+const Navbar = ({ activeLink, setActiveLink, notification, setNotification }) => {
 
-    const navigate = useNavigate();
-    const dispatch =  useDispatch();
-    const location = useLocation();
-
-    const [profile, setProfile] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [profile] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [showMobileMenu, setShowMobileMenu] = useState(false);
     
-    const logout = () => {
-        dispatch({ type: LOGOUT });
+    const navigate = useNavigate();
+    
+    const MobileMenu = () => {
+        const dispatch = useDispatch();
+        
+        const handleLogout = (e) => {
+            e.preventDefault();
+            dispatch(logout(navigate))
+        };
 
-        navigate('/');
-        setProfile(null);
-    }
-
-    useEffect(()=> {
-        const token = profile && profile.token;
-
-        if(token) {
-            const decodedToken = decode(token);
-            if(decodedToken.exp * 1000 < new Date().getTime()) logout();
+        const openExpenseForm = (e) => {
+            e.preventDefault();
+            navigate('/form');
+            setShowMobileMenu(false);
         }
-        // eslint-disable-next-line 
-    },[ location ]);
 
-
-  return (
-    <Box className='bg-[#fcfcfc] flex flex-col-reverse sm:flex-row items-center md:justify-end  p-4'>
-        <Box className="flex flex-row sm:gap-4 mt-5 sm:mt-0 items-center justify-center w-full">
-            <div className="flex">
-                <img className='w-[70px] h-[60px]' src="https://llamdodu.sirv.com/icodeThis/ontime.png" alt='ontime'/>
+        return (
+            <>
+            { showMobileMenu ? (
+            <div className='absolute right-0 w-screen sm:w-[50%] md:hidden max-sm:h-[86%] overflow-hidden text-white  bg-gray-700 z-[100] text-right text-4xl p-3'>
+              <AsideLink title='Overview' activeLink={activeLink} setActiveLink={setActiveLink} setShowMobileMenu={setShowMobileMenu} showMobileMenu={showMobileMenu} to={'/dashboard'} addStyles={'justify-end'} />
+              <AsideLink title='Pickings' activeLink={activeLink} setActiveLink={setActiveLink} setShowMobileMenu={setShowMobileMenu} showMobileMenu={showMobileMenu} to={'/pickings'} addStyles={'justify-end'} />
+              <AsideLink title='Expenses' activeLink={activeLink} setActiveLink={setActiveLink} setShowMobileMenu={setShowMobileMenu} showMobileMenu={showMobileMenu} to={'/expenses'} addStyles={'justify-end'} />
+              <AsideLink title='Settings' activeLink={activeLink} setActiveLink={setActiveLink} setShowMobileMenu={setShowMobileMenu} showMobileMenu={showMobileMenu} to={'/settings'}  addStyles={'justify-end'} />
+              <button className='px-4 mt-2 w-full text-right' onClick = { openExpenseForm }>Enter Expense</button>
+              <button className='px-4 mt-2 w-full text-right' onClick = { handleLogout }>Logout</button>
             </div>
-            <div className=" flex justify-center w-full">
-            <Typography className='text-[35px] w-[100vw] sm:w-auto text-center '  >Tea Picking Record</Typography>
+            ): ''}
+            </>
+        )
+    }
+    
+  return (
+    <>
+    <Box className='bg-[#fcfcfc] flex flex-col-reverse sm:flex-row items-center md:justify-end  w-full px-10 py-4'>
+        <Box className="flex flex-row sm:gap-4 mt-5 sm:mt-0 items-center justify-center w-full">
+            <div className=" flex justify-between w-full">
+                <Typography className='w-screen sm:w-full text-center md:text-left text-lg'>{ activeLink }</Typography>
             </div>
         </Box>
         <Box className="flex gap-4 items-center sm:justify-end justify-between w-full">
-            <div className="flex flex-row-reverse sm:flex-row gap-4 items-center font-semibold">
-                <p>{profile?.user.name }</p>
-               <Avatar className='bg-[#1e36e8] '>{profile?.user.name.charAt(0)}</Avatar>
-            </div>             
-             <button className='bg-red-500 px-5 py-1 rounded-lg text-white font-semibold' onClick={logout}>Logout</button> 
+            <div className="flex flex-row sm:flex-row gap-4 items-center font-semibold">
+                    <SearchOutlined />
+                    <NotificationAddOutlined sx={{ color: `${ notification && '#ff0000' }`}} />
+                    <Avatar className='bg-[#1e36e8] '>{ profile?.user.name.charAt(0) }</Avatar>
+                <div className='flex justify-center flex-col'>
+                    <p>{profile?.user.name }</p>
+                    <p className='text-xs font-thin text-[#666] leading-3'>{profile?.user.email }</p>
+                </div>
+            </div>    
+            <div className="flex md:hidden">
+                <button onClick={() => setShowMobileMenu((prevState)=>!prevState)}>{ showMobileMenu ? <CloseOutlined /> : <MenuOutlined /> }</button>
+            </div>         
         </Box>
     </Box>
+        <MobileMenu />
+    </>
   )
 }
 

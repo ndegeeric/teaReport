@@ -1,5 +1,6 @@
 import PickingSchema from "../models/picking.js";
 import mongoose from "mongoose";
+import Expenses from "../models/expenses.js";
 
 export const getOnePick = async(req, res) => {
     const { id: _id } = req.params;
@@ -73,6 +74,82 @@ export const deletePick = async(req,res) => {
         // console.log(error);
         res.status(404).json({ message: error.message });
     }
+}
+
+export const getOneExpense = async(req, res) => {
+  const { id: _id } = req.params;
+
+  try {
+    const data = await Expenses.findById(_id);
+
+    // console.log(data)
+    res.status(200).send(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
+export const getExpenses = async(req, res) => {
+  // console.log('here')
+  try {
+    const data = await Expenses.find();
+
+    res.status(200).send(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
+export const createExpense = async(req, res) => {
+  const { expenseType, amount, narration, status } = req.body;
+
+  try {
+    const expenseData =  new Expenses({ expenseType, amount, narration, status });
+
+    await expenseData.save();
+
+    res.status(200).json(expenseData);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: `A server error occurred` })
+  }
+}
+
+export const updateExpense = async(req, res) => {
+  const { id: _id } = req.params;
+  const data = req.body;
+
+  if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(400).json({ message: `Not a valid MongoDb ID` });
+
+  try {
+
+    const updatedExpense = await Expenses.findByIdAndUpdate(_id, { ...data, _id }, { new: true });
+
+    res.status(200).send(updatedExpense);
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });    
+  }
+}
+
+export const deleteExpense = async(req, res) => {
+  console.log('here')
+  const { id: _id } = req.params;
+
+  if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(400).json({ message: 'Not a valid MongoDB ID' });
+
+  try {
+    await Expenses.findByIdAndDelete(_id);
+
+    res.status(200).json({ message: 'Expense deleted successfully' });     
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
 }
 
 export const monthlyTotals = async(req, res) => {
