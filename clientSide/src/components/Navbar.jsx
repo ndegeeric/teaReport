@@ -49,7 +49,7 @@ const Navbar = ({ activeLink, setActiveLink, notification, setNotification }) =>
     <Box className='bg-[#fcfcfc] flex flex-col-reverse sm:flex-row items-center md:justify-end  w-full px-10 py-4'>
         <Box className="flex flex-row sm:gap-4 mt-5 sm:mt-0 items-center justify-center w-full">
             <div className=" flex justify-between w-full">
-                <Typography className='w-screen sm:w-full text-center md:text-left text-lg'>{ activeLink }</Typography>
+                <Typography className='w-screen sm:w-full text-center md:text-left text-xl'>{ activeLink }</Typography>
             </div>
         </Box>
         <Box className="flex gap-4 items-center sm:justify-end justify-between w-full">
@@ -62,7 +62,7 @@ const Navbar = ({ activeLink, setActiveLink, notification, setNotification }) =>
                     <p className='text-xs font-thin text-[#666] leading-3'>{profile?.user.email }</p>
                 </div>
             </div>    
-            <div className="flex md:hidden">
+            <div className="flex md:hidden mr-2 sm:mr-0">
                 <button onClick={() => setShowMobileMenu((prevState)=>!prevState)}>{ showMobileMenu ? <CloseOutlined /> : <MenuOutlined /> }</button>
             </div>         
         </Box>

@@ -44,8 +44,8 @@ useEffect(()=>{
         </div>
       </div>
       <div className="grid grid-rows-2 md:ml-3 h-full">
-          <div className="bg-gray-100  max-h-full">e</div>
-          <div className="bg-slate-100 max-h-full">f</div>
+          <div className="bg-gray-100  max-h-full"></div>
+          <div className="bg-slate-100 max-h-full"></div>
       </div>
     </div>
     // repeat(2, minmax(0, 1fr))

@@ -13,7 +13,7 @@ import { Dashboard, Expenses, ExpenseDetails, Pickings, Settings, ExpensesForm }
 
 const App = () => {
   const [activeLink, setActiveLink] = useState('Overview');
-  const [notification, setNotification] = useState(true)
+  const [notification, setNotification] = useState(false)
 
   const navigate = useNavigate();
 
