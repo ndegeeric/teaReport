@@ -5,3 +5,5 @@ export { default as Pickings } from './Pickings';
 export { default as PickingsTable } from './PickingsTable';
 export { default as Settings } from './Settings';
 export { default as ExpensesForm } from './ExpensesForm';
+export { default as PickingsForm } from './PickingsForm';
+export { default as PickingDetails } from './PickingDetails';

@@ -21,7 +21,7 @@ const ExpensesForm = () => {
       setExpenseData( data );
       setIsEdit(true)
     }
-  },[data, id])
+  },[data, id]);
   
   const handleSubmit = (e) => {
     e.preventDefault();

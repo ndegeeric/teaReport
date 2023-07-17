@@ -28,6 +28,12 @@ const Navbar = ({ activeLink, setActiveLink, notification, setNotification }) =>
             setShowMobileMenu(false);
         }
 
+        const openPickingForm = (e) => {
+            e.preventDefault();
+            navigate('/pickingsForm');
+            setShowMobileMenu(false);
+        }
+
         return (
             <>
             { showMobileMenu ? (
@@ -36,6 +42,7 @@ const Navbar = ({ activeLink, setActiveLink, notification, setNotification }) =>
               <AsideLink title='Pickings' activeLink={activeLink} setActiveLink={setActiveLink} setShowMobileMenu={setShowMobileMenu} showMobileMenu={showMobileMenu} to={'/pickings'} addStyles={'justify-end'} />
               <AsideLink title='Expenses' activeLink={activeLink} setActiveLink={setActiveLink} setShowMobileMenu={setShowMobileMenu} showMobileMenu={showMobileMenu} to={'/expenses'} addStyles={'justify-end'} />
               <AsideLink title='Settings' activeLink={activeLink} setActiveLink={setActiveLink} setShowMobileMenu={setShowMobileMenu} showMobileMenu={showMobileMenu} to={'/settings'}  addStyles={'justify-end'} />
+              <button className='px-4 mt-2 w-full text-right' onClick = { openPickingForm }>Enter Picking</button>
               <button className='px-4 mt-2 w-full text-right' onClick = { openExpenseForm }>Enter Expense</button>
               <button className='px-4 mt-2 w-full text-right' onClick = { handleLogout }>Logout</button>
             </div>
@@ -52,17 +59,17 @@ const Navbar = ({ activeLink, setActiveLink, notification, setNotification }) =>
                 <Typography className='w-screen sm:w-full text-center md:text-left text-xl'>{ activeLink }</Typography>
             </div>
         </Box>
-        <Box className="flex gap-4 items-center sm:justify-end justify-between w-full">
+        <Box className="flex gap-2 items-center sm:justify-end justify-between w-full">
             <div className="flex flex-row sm:flex-row gap-4 items-center font-semibold">
                     <SearchOutlined />
                     <NotificationAddOutlined sx={{ color: `${ notification && '#ff0000' }`}} />
                     <Avatar className='bg-[#1e36e8] '>{ profile?.user.name.charAt(0) }</Avatar>
                 <div className='flex justify-center flex-col'>
                     <p>{profile?.user.name }</p>
-                    <p className='text-xs font-thin text-[#666] leading-3'>{profile?.user.email }</p>
+                    <p className='text-xs font-thin text-[#666] leading-3 text-ellipsis '>{profile?.user.email }</p>
                 </div>
             </div>    
-            <div className="flex md:hidden mr-2 sm:mr-0">
+            <div className="flex md:hidden ">
                 <button onClick={() => setShowMobileMenu((prevState)=>!prevState)}>{ showMobileMenu ? <CloseOutlined /> : <MenuOutlined /> }</button>
             </div>         
         </Box>

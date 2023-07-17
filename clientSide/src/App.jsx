@@ -9,7 +9,7 @@ import './app.css';
 
 
 import { Auth, Aside, Navbar } from './components';
-import { Dashboard, Expenses, ExpenseDetails, Pickings, Settings, ExpensesForm } from './pages';
+import { Dashboard, Expenses, ExpenseDetails, Pickings, Settings, ExpensesForm, PickingsForm, PickingDetails } from './pages';
 
 const App = () => {
   const [activeLink, setActiveLink] = useState('Overview');
@@ -49,6 +49,8 @@ const App = () => {
         <Route path='/expenseDetails/:id' element={ <ExpenseDetails />} />
         <Route path='/settings' element={ <Settings />} />
         <Route path='/form' element={ <ExpensesForm /> } />
+        <Route path= '/pickingsForm' element={ <PickingsForm /> } />
+        <Route path='/pickingDetails/:id' element={ <PickingDetails />} />
       </Routes>
     </div>
     </div>

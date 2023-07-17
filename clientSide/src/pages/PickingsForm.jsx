@@ -1,36 +1,38 @@
 import React, { useState, useEffect } from 'react';
-
 import { TextField, Box, Typography, Button, FormControl,FormHelperText } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPick, updatePick } from '../actions/picking';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import {ErrorAuth} from '../components';
 
-const Form = ({ currentId, setCurrentId, setShowForm }) => {
+const Form = () => {
+  const { state } = useLocation();
+  const navigate = useNavigate();
+  const { id } = state || {};
   const initialState = { weight: '' }
   const [ pickData, setPickData ] = useState(initialState);
   const dispatch = useDispatch();
   const [errorHandler, setErrorHandler] = useState({hasError: false, message: ""})
   
-  
-  const data = useSelector( state => currentId ? state?.picks.find( p =>  p._id === currentId ) : null );
+  const data = useSelector( state => id ? state?.picks.find( p =>  p._id === id ) : null );
+  // console.log(data)
 
   useEffect(()=> {
-    if( currentId ) {
+    if( id ) {
       setPickData(data)
     }
-    // eslint-disable-next-line
-  },[data]);
+  },[ data, id ]);
 
   const clearForm = () => {
-    setCurrentId(0);
     setPickData(initialState);
-    setShowForm(false);
+    navigate('/pickings');
   }
 
   
   const handleSubmit = () => {
-    if(currentId){
-      dispatch(updatePick(pickData, currentId, setErrorHandler));
+    if(id){
+      dispatch(updatePick(pickData, id, setErrorHandler));
     }else{
       dispatch(createPick(pickData, setErrorHandler));
     }
@@ -38,16 +40,16 @@ const Form = ({ currentId, setCurrentId, setShowForm }) => {
     clearForm();
   }
   
-  const handleKeyPress = (e)=>{
-    if( e.key === 'Enter' ){
-      e.preventDefault();
-      handleSubmit();
-    }
-  };
+  // const handleKeyPress = (e)=>{
+  //   if( e.key === 'Enter' ){
+  //     e.preventDefault();
+  //     handleSubmit();
+  //   }
+  // };
 
   return (
     <Box className='md:m-5 m-1 mb-5 w-full'>
-      <Typography fontSize={25} fontWeight={700} color='#11142d'marginLeft={2} >{currentId ? 'Edit' : 'Enter' } the Picking data.</Typography>
+      <Typography fontSize={25} fontWeight={700} color='#11142d'marginLeft={2} >{ id ? 'Edit' : 'Enter' } the Picking data.</Typography>
       <ErrorAuth errorHandler={errorHandler} setErrorHandler={setErrorHandler} />
       <Box className='sm:mt-2.5 mt-1 sm:p-[20px]' borderRadius='15px' bgcolor='#fcfcfc'>
         <form style={{ 
@@ -57,10 +59,7 @@ const Form = ({ currentId, setCurrentId, setShowForm }) => {
             <FormHelperText  sx={{
               fontWeight:500, margin:'10px 0', fontSize:16, color:'#11142d'
             }}>Enter the Daily Harvest Weight: <span className='text-red-500 text-xl'>*</span></FormHelperText>
-            <TextField onKeyPress={(e)=>handleKeyPress(e)} sx={{
-              width: '100%',
-
-            }} name='weight' value={pickData.weight} onChange={(e)=> setPickData({ ...pickData, weight: e.target.value })} placeholder='123.50' fullWidth/>
+            <TextField fullWidth name='weight' value={pickData.weight} onChange={(e)=> setPickData({ ...pickData, weight: e.target.value })} placeholder='123.50' />
           </FormControl>
           <Button variant='contained' onClick={handleSubmit} fullWidth>Save</Button>
           <Button onClick={clearForm}>Clear Form</Button>
