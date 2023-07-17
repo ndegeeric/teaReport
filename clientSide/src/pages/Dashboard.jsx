@@ -4,7 +4,7 @@ import { getPicks } from '../actions/picking';
 import { fetchExpenses } from '../actions/expenses';
 import { ArrowUpwardOutlined, ArrowDownwardOutlined } from '@mui/icons-material';
 
-import { Feature, Table } from '../components';
+import { Feature,  PieChart, PickingsAnalysis } from '../components';
 
 const Dashboard = () => {
   
@@ -32,8 +32,7 @@ useEffect(()=>{
            <Feature  title={`Year to Date`} value={`Ksh ${'1000'}`} icon={<ArrowDownwardOutlined />} subsValue={'Expenses'} percentage={'-7%'} addStyles={'bg-indigo-100'} />
         </div>
         <div className="max-h-[280px] overflow-auto">
-          <Table 
-            tableHeader={tHeader}
+          <PickingsAnalysis
             bodyData={expenses}
           />
         </div>
@@ -43,9 +42,15 @@ useEffect(()=>{
           <Feature />
         </div>
       </div>
-      <div className="grid grid-rows-2 md:ml-3 h-full">
-          <div className="bg-gray-100  max-h-full"></div>
-          <div className="bg-slate-100 max-h-full"></div>
+      <div className="grid grid-rows-2  h-full">
+          <div className=" max-h-full">
+            <PieChart title='Expenses' value={ 759 } series={[ 60, 40]} colors={['#475be8', '#e4e8ef']} />
+          </div>
+          <div className=" max-h-full">
+          <div className=" max-h-full">
+            <PieChart title='Income' value={ 1759 } series={[ 70, 30]} colors={['#275be8', '#ffe8e1']} />
+          </div>
+          </div>
       </div>
     </div>
     // repeat(2, minmax(0, 1fr))
