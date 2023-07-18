@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import pickingRoutes from './routes/pickingRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import expenseRoutes from './routes/expenseRoutes.js';
+import analyticsRoutes from './routes/analyticsRoutes.js';
 import auth from './middleware/auth.js';
 import { logger } from './middleware/logEvents.js';
 
@@ -21,6 +22,7 @@ app.use(express.json({ limit: '30mb', extended: true}));
 app.use('/api/user', userRoutes);
 app.use('/api/expenses',auth, expenseRoutes);
 app.use('/api/rcd', auth, pickingRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 app.get('/', (req,res)=> {
     res.send(`Welcome to Ontime Tea Picking Management System.`);

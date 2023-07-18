@@ -4,7 +4,10 @@ import { BarChart } from '../components';
 import { Box, Stack, Typography } from '@mui/material';
 import { CalendarMonthOutlined, ExpandMore } from '@mui/icons-material';
 
-const PickingsAnalysis = () => {
+const PickingsAnalysis = ({ bodyData }) => {
+    let weights = [];
+    bodyData.map(pick => weights.push(pick.weight));
+    // console.log(weights);
   return (
     <Box p={2} flex={1} bgcolor='#fcfcfc' flexDirection='column' borderRadius='15px'>
         <Stack direction='row' flex={1} alignItems='center' justifyContent='space-between' >
@@ -21,7 +24,7 @@ const PickingsAnalysis = () => {
             </Stack>
         </Stack> */}
         <BarChart
-
+            weights={weights}
         />
     </Box>
   )

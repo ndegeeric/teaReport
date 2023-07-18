@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const API = axios.create({ baseURL: 'http://localhost:5000'});
-const API = axios.create({ baseURL: 'https://ontime-tea-report.vercel.app/'});
+const API = axios.create({ baseURL: 'http://localhost:5000'});
+// const API = axios.create({ baseURL: 'https://ontime-tea-report.vercel.app/'});
 
 API.interceptors.request.use((req)=> {
     if (localStorage.getItem('profile')) {
@@ -21,3 +21,7 @@ export const createExpense = (expenseData) => API.post('/api/expenses', expenseD
 export const fetchExpense = (id) => API.get(`/api/expenses/${id}`);
 export const updateExpense = (expenseData, _id) => API.patch(`/api/expenses/${_id}`, expenseData);
 export const deleteExpense = (id) => API.delete(`/api/expenses/${id}`);
+export const fetchRangePicks = (range) => API.post(`/api/analytics/monthlyPicks`, range);
+export const getMonthlyPicks = () => API.get(`/api/analytics/groupByMonth`); 
+export const getAnnualPicks = () => API.get(`/api/analytics/annualPicks`); 
+export const getMonthlyExpenses = () => API.get(`/api/analytics/monthlyExpenses`); 

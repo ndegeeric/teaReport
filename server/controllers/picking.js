@@ -137,7 +137,7 @@ export const updateExpense = async(req, res) => {
 }
 
 export const deleteExpense = async(req, res) => {
-  console.log('here')
+  // console.log('here')
   const { id: _id } = req.params;
 
   if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(400).json({ message: 'Not a valid MongoDB ID' });
@@ -153,7 +153,7 @@ export const deleteExpense = async(req, res) => {
 }
 
 export const monthlyTotals = async(req, res) => {
-    const dateRange = req.body.dateRange || {};
+    const { startDate, endDate } = req.body || {};
 
     try {
         const data = await PickingSchema.aggregate(
@@ -161,8 +161,8 @@ export const monthlyTotals = async(req, res) => {
                 {
                   '$match': {
                     'createdAt': {
-                      '$gte': new Date('Mon, 01 May 2023 00:00:00 GMT'), 
-                      '$lte': new Date('Wed, 31 May 2023 23:59:46 GMT')
+                      '$gte': new Date(startDate), 
+                      '$lte': new Date(endDate)
                     }
                   }
                 }, {
@@ -171,10 +171,11 @@ export const monthlyTotals = async(req, res) => {
                       '$cond': [
                         {
                           'lt': ''
-                        }, '0-30', '0'
+                        },
+                         `${ startDate } - ${ endDate }`, '0'
                       ]
                     }, 
-                    'monthlyTotal': {
+                    'total': {
                       '$sum': '$weight'
                     }
                   }
@@ -182,9 +183,103 @@ export const monthlyTotals = async(req, res) => {
               ]
         );
 
-        res.status(200).json({ data });
+        res.status(200).json( data );
     } catch (error) {
         console.log(error);
         res.status(404).json({ message: error.message });
     }
+}
+
+export const groupByMonth = async(req, res) => {
+  // const { startDate, endDate } = req.body;
+  const now = new Date();
+  // const oneYr = new Date(now - (365*24*60*60*1000))
+  // const endDate = new Date(`Wed, 30 June 2023 23:59:46 GMT`);
+  const month = now.getMonth() +1;
+  const year = now.getFullYear();
+  const  startDate = new Date(` 0${ month }-01-${ year } 00:00:00 GMT`);
+  // console.log(startDate, now);
+  try {
+    const data = await PickingSchema.aggregate([
+      { $match: { "createdAt": {
+        '$gte': startDate,
+        '$lte': now
+        }}
+      },
+      { $group: { "_id": month, 'monthlyPicks' : { '$sum': '$weight'}}}
+    ])
+  
+    res.status(200).json(data);
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error});
+  }
+
+}
+
+export const lastOneYear = async(req, res) => {
+  const now = new Date();
+  const startDate = new Date(now - 365*24*60*60*1000);
+  const pickYr = `${now.getFullYear()-1} - ${now.getFullYear()}`
+
+  try {
+    const data = await PickingSchema.aggregate([
+      {
+        $match: { "createdAt": {
+          '$gte': startDate,
+          '$lte': now
+        }}
+      },{
+        $group: { "_id": pickYr, 'lastOneYear': { '$sum': "$weight"}}
+      }
+
+    ])
+
+    res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error});
+  }
+  
+}
+
+export const getMonthlyExpense = async(req, res) => {
+  const now = new Date();
+  const month = `${now.getMonth() + 1}`;
+  const startDate = new Date(`01 ${month} ${ now.getFullYear()} 00:00:00`);
+
+  try {
+    const data = await Expenses.aggregate([
+      { $match : {"createdAt": {
+          '$gte': startDate,
+          '$lte': now
+      }}},
+      { $group: {
+        "_id": month, 'monthlyExpenses': { '$sum': '$amount'}
+      }}
+    ])
+  
+    res.status(200).json(data);    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error});
+  }
+}
+
+export const getAnnualExpenses = async(req, res) => {
+  const now = new Date();
+  const startDate = new Date(now - (365 * 24 * 60 * 60 * 1000));
+  const oneYr = `${startDate.getFullYear()} - ${now.getFullYear()}`;
+
+  const data = await Expenses.aggregate([
+    { $match: { 'createdAt': {
+      '$gte': startDate,
+      '$lte': now
+    }}},{
+      $group: { "_id": oneYr, 'annualExpenses': { '$sum': '$amount' }}
+    }
+  ])
+
+  res.status(200).json(data);
 }
