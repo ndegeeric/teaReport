@@ -4,7 +4,7 @@ import React from 'react';
 
 const Feature = ({ title, value, icon, subsValue, percentage, addStyles }) => {
   return (
-    <Box className={`flex flex-col py-6 md:py-3 px-4 md:px-0 w-[330px] md:w-auto items-center justify-around cursor-pointer bg-gray-100 rounded-lg ${addStyles}`}>
+    <Box className={`flex flex-col py-6 md:py-3 px-4 md:px-0 w-[90vw] md:w-auto items-center justify-around cursor-pointer bg-gray-100 rounded-lg ${addStyles}`}>
       <Typography fontSize={16} fontWeight={600} color='#111420' >{ title }</Typography>
       <Typography fontSize={10} fontWeight={400} color='#808191' sx={{ marginBottom: '10px', md:{ marginBottom: 0 }}} >{ subsValue }</Typography>
         <Box flexDirection='row' alignItems='center' display='flex' flexWrap='wrap' gap={4}>
