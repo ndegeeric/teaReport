@@ -197,19 +197,54 @@ export const groupByMonth = async(req, res) => {
   // const endDate = new Date(`Wed, 30 June 2023 23:59:46 GMT`);
   const month = now.getMonth() +1;
   const year = now.getFullYear();
-  const  startDate = new Date(` 0${ month }-01-${ year } 00:00:00 GMT`);
+  const  monthlyStartDate = new Date(` 0${ month }-01-${ year } 00:00:00 GMT`);
+  const annualStartDate = new Date(now - 365*24*60*60*1000);
+  const pickYr = `${now.getFullYear()-1} - ${now.getFullYear()}`
+
+
   // console.log(startDate, now);
   try {
     const data = await PickingSchema.aggregate([
       { $match: { "createdAt": {
-        '$gte': startDate,
+        '$gte': monthlyStartDate,
         '$lte': now
         }}
       },
       { $group: { "_id": month, 'monthlyPicks' : { '$sum': '$weight'}}}
     ])
-  
-    res.status(200).json(data);
+
+    const lastOneYear = await PickingSchema.aggregate([
+      {
+        $match: { "createdAt": {
+          '$gte': annualStartDate,
+          '$lte': now
+        }}
+      },{
+        $group: { "_id": pickYr, 'lastOneYear': { '$sum': "$weight"}}
+      }
+
+    ])
+
+    const monthlyExpenses = await Expenses.aggregate([
+      { $match : {"createdAt": {
+          '$gte': monthlyStartDate,
+          '$lte': now
+      }}},
+      { $group: {
+        "_id": '', 'monthlyExpenses': { '$sum': '$amount'}
+      }}
+    ])
+
+    const annualExpenses = await Expenses.aggregate([
+      { $match: { 'createdAt': {
+        '$gte': annualStartDate,
+        '$lte': now
+      }}},{
+        $group: { "_id": pickYr, 'annualExpenses': { '$sum': '$amount' }}
+      }
+    ])
+
+    res.status(200).json({ data, lastOneYear, monthlyExpenses, annualExpenses});
     
   } catch (error) {
     console.log(error);
@@ -220,8 +255,6 @@ export const groupByMonth = async(req, res) => {
 
 export const lastOneYear = async(req, res) => {
   const now = new Date();
-  const startDate = new Date(now - 365*24*60*60*1000);
-  const pickYr = `${now.getFullYear()-1} - ${now.getFullYear()}`
 
   try {
     const data = await PickingSchema.aggregate([
@@ -272,14 +305,7 @@ export const getAnnualExpenses = async(req, res) => {
   const startDate = new Date(now - (365 * 24 * 60 * 60 * 1000));
   const oneYr = `${startDate.getFullYear()} - ${now.getFullYear()}`;
 
-  const data = await Expenses.aggregate([
-    { $match: { 'createdAt': {
-      '$gte': startDate,
-      '$lte': now
-    }}},{
-      $group: { "_id": oneYr, 'annualExpenses': { '$sum': '$amount' }}
-    }
-  ])
+  
 
   res.status(200).json(data);
 }

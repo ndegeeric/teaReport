@@ -23,5 +23,5 @@ export const updateExpense = (expenseData, _id) => API.patch(`/api/expenses/${_i
 export const deleteExpense = (id) => API.delete(`/api/expenses/${id}`);
 export const fetchRangePicks = (range) => API.post(`/api/analytics/monthlyPicks`, range);
 export const getMonthlyPicks = () => API.get(`/api/analytics/groupByMonth`); 
-export const getAnnualPicks = () => API.get(`/api/analytics/annualPicks`); 
-export const getMonthlyExpenses = () => API.get(`/api/analytics/monthlyExpenses`); 
+// export const getAnnualPicks = () => API.get(`/api/analytics/annualPicks`); 
+// export const getMonthlyExpenses = () => API.get(`/api/analytics/monthlyExpenses`); 
