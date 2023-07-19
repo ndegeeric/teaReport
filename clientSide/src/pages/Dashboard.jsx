@@ -14,7 +14,7 @@ const Dashboard = () => {
   const pickings = useSelector(state => state.picks) || {};
   const analysis = useSelector(state => state.analysis) || {};
   
-  console.log(analysis.data)
+  // console.log(analysis.data)
   const [monthlyPicks] = analysis.data?.map(item => item.monthlyPicks) || [];
   const [annualPicks] = analysis.lastOneYear?.map(item => item.lastOneYear) || [];
   const [monthlyExpenses] = analysis.monthlyExpenses?.map(item => item.monthlyExpenses) || [];
