@@ -18,11 +18,11 @@ const Table = ({ tableHeader, bodyData }) => {
             <tbody className='' >
             {
                 bodyData?.map( (item, i) => (
-                        <tr key={item._id} className='w-full even:bg-blue-100'>
+                        <tr key={item._id} className='w-full even:bg-blue-100 text-sm'>
                             <td className='text-right  py-1'><Link to={`/expenseDetails/${item?._id}`}>{i+1}</Link></td>
                             <td className='text-center py-1'><Link to={`/expenseDetails/${item?._id}`}>{dateFormatter(item.createdAt)}</Link></td>
-                            <td className='text-center py-1'><Link to={`/expenseDetails/${item?._id}`}>{item.expenseType}</Link></td>
-                            <td className='text-left py-1'><Link to={`/expenseDetails/${item?._id}`}>{item.narration}</Link></td> 
+                            <td className='text-center py-1 text-ellipsis overflow-hidden'><Link to={`/expenseDetails/${item?._id}`}>{item.expenseType}</Link></td>
+                            <td className='text-left py-1 text-ellipsis overflow-hidden'><Link to={`/expenseDetails/${item?._id}`}>{item.narration}</Link></td> 
                             <td className='text-right p-1'><Link to={`/expenseDetails/${item?._id}`}>{item.amount}</Link></td>
                             <td className='text-center py-1'><Link to={`/expenseDetails/${item?._id}`}>{item.status}</Link></td>
                         </tr>

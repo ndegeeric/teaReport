@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createPick, updatePick } from '../actions/picking';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+import { createExpense } from '../actions/expenses';
 import {ErrorAuth} from '../components';
 
 const Form = () => {
@@ -35,6 +36,7 @@ const Form = () => {
       dispatch(updatePick(pickData, id, setErrorHandler));
     }else{
       dispatch(createPick(pickData, setErrorHandler));
+      dispatch(createExpense({  expenseType: 'Picking Wage', narration: `${pickData.weight} kgs @ Ksh 12/kg.`, amount: pickData.weight * 12, status: undefined}))
     }
     setPickData(initialState);
     clearForm();

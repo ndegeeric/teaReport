@@ -9,7 +9,8 @@ const Expenses = () => {
   const dispatch = useDispatch();
   const expenses = useSelector( state =>  state.expenses );
 
-  const tableHeaderData = [' ', 'Date', 'Expense', 'Description', 'Amount', 'Status' ]
+  const tableHeaderData = [' ', 'Date', 'Expense', 'Details', 'Amount', 'Status' ]
+  // const tableHeaderData2 = [' ', 'Date', 'Expense', 'Amount', 'Status' ]
   const tHeader = tableHeaderData.map((thd, i) => ( <th key={ i } className='text-center p-2' >{ thd }</th>));
 
   useEffect(()=> {
