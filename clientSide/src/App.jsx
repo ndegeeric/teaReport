@@ -20,7 +20,7 @@ const App = () => {
   useEffect(()=>{
 
     console.log(!JSON.parse(localStorage.getItem('profile')))
-    if(!JSON.parse(localStorage.getItem('profile'))){
+    if(JSON.parse(localStorage.getItem('profile'))){
       localStorage.clear();
       navigate('/');
     }

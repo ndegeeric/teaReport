@@ -2,7 +2,7 @@ import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 import { Box, Typography, Stack } from '@mui/material';
 
-const PieChart = ({ picks, title, value, series, colors }) => {
+const PieChart = ({ title, value, series, colors }) => {
   return (
     <Box pl={3.5} position={'relative'}>
       <Typography marginBottom='10px' fontSize={14} color='#808191'>{ title }</Typography>

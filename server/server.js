@@ -22,7 +22,7 @@ app.use(express.json({ limit: '30mb', extended: true}));
 app.use('/api/user', userRoutes);
 app.use('/api/expenses',auth, expenseRoutes);
 app.use('/api/rcd', auth, pickingRoutes);
-app.use('/api/analytics', analyticsRoutes);
+app.use('/api/analytics', auth, analyticsRoutes);
 
 app.get('/', (req,res)=> {
     res.send(`Welcome to Ontime Tea Picking Management System.`);

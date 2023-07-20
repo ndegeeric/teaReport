@@ -238,85 +238,49 @@ export const groupByMonth = async(req, res) => {
       { $match: { 'createdAt': {
         '$gte': annualStartDate,
         '$lte': now
-      }}},{
-        $project: {    
-          month: { $month: '$createdAt' },
-          year: { $year: '$createdAt' },
-          amount: 1
-        }
-      },
+      }}},
+      // {
+      //   $project: {    
+      //     month: { $month: '$createdAt' },
+      //     year: { $year: '$createdAt' },
+      //     amount: 1
+      //   }
+      // },
       {
-        $group: { _id: {
+        $group: { _id: 
+        {
           month: { $month: '$createdAt' },
           // year: { $year: '$createdAt' }
-        }, 'annualExpenses': { '$sum': '$amount' }}
+        }, 'annualExpenses': { '$sum': '$amount' }
+      }
+      }
+    ]);
+
+    const eachMonthTotal = await PickingSchema.aggregate([
+      {
+        $match: { 'createdAt': {
+          '$gte': annualStartDate,
+          '$lte': now
+        }}
+      },
+      {
+        $group: {
+          _id: { 
+            month: { $month: '$createdAt' },
+            // year: { $year: '$createdAt' },
+          },
+          weight: { $sum: '$weight'},
+        }
       }
     ])
 
-    console.log(annualExpenses, now);
+    console.log(eachMonthTotal);
     // console.log({'annualStartDate': (now.getMonth() < 6 ) })
-    res.status(200).json({ data, lastOneYear, monthlyExpenses, annualExpenses});
+    res.status(200).json({ data, lastOneYear, monthlyExpenses, annualExpenses, eachMonthTotal});
     
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error});
   }
 
-}
-
-export const lastOneYear = async(req, res) => {
-  const now = new Date();
-
-  try {
-    const data = await PickingSchema.aggregate([
-      {
-        $match: { "createdAt": {
-          '$gte': startDate,
-          '$lte': now
-        }}
-      },{
-        $group: { "_id": pickYr, 'lastOneYear': { '$sum': "$weight"}}
-      }
-
-    ])
-
-    res.status(200).json(data);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error});
-  }
-  
-}
-
-export const getMonthlyExpense = async(req, res) => {
-  const now = new Date();
-  const month = `${now.getMonth() + 1}`;
-  const startDate = new Date(`01 ${month} ${ now.getFullYear()} 00:00:00`);
-
-  try {
-    const data = await Expenses.aggregate([
-      { $match : {"createdAt": {
-          '$gte': startDate,
-          '$lte': now
-      }}},
-      { $group: {
-        "_id": month, 'monthlyExpenses': { '$sum': '$amount'}
-      }}
-    ])
-  
-    res.status(200).json(data);    
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error});
-  }
-}
-
-export const getAnnualExpenses = async(req, res) => {
-  const now = new Date();
-  const startDate = new Date(now - (365 * 24 * 60 * 60 * 1000));
-  const oneYr = `${startDate.getFullYear()} - ${now.getFullYear()}`;
-
-  
-
-  res.status(200).json(data);
 }

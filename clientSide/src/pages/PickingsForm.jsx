@@ -50,7 +50,7 @@ const Form = () => {
   // };
 
   return (
-    <Box className='md:m-5 m-1 mb-5 w-full'>
+    <Box className='md:m-5 m-1 mb-5 w-[80vw]'>
       <Typography fontSize={25} fontWeight={700} color='#11142d'marginLeft={2} >{ id ? 'Edit' : 'Enter' } the Picking data.</Typography>
       <ErrorAuth errorHandler={errorHandler} setErrorHandler={setErrorHandler} />
       <Box className='sm:mt-2.5 mt-1 sm:p-[20px]' borderRadius='15px' bgcolor='#fcfcfc'>

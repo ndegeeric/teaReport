@@ -27,8 +27,8 @@ const DetailsCard = ({ handlePaid, handleEdit, handleDelete, data }) => {
         <div className="pt-5 sm:pt-0">
           <Typography className='text-center pb-3' sx={{ fontWeight: 'bold', fontSize: '25px' }}>Details Of the {`${ weight? 'Dairy Picking' : 'Expense' }`}</Typography>
           <Typography><span className='font-[400] text-xl mt-4'>{`${ weight ? 'Weight' : 'Narration'}`}:</span> {weight ? `${ weight } Kgs.` : data.narration}</Typography>
-          <Typography><span className='font-[400] text-xl'>Amount: </span> Ksh {`${weight ? weight * 21 : data.amount }.`}</Typography>
-          <Typography><span className='font-[400] text-xl'>{`${ weight ? 'Picking Wages' : 'Status'}`}: </span>{ weight ? `Ksh ${ weight * 12 }` : <span className={`${data.status === 'PENDING' ? 'bg-red-200' : 'bg-lime-200'} px-2 py-1 `}>{data.status}</span>}.</Typography>
+          <Typography><span className='font-[400] text-xl'>Amount: </span> {`${weight ? Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(weight * 21) : Intl.NumberFormat().format(data.amount) }.`}</Typography>
+          <Typography><span className='font-[400] text-xl'>{`${ weight ? 'Picking Wages' : 'Status'}`}: </span>{ weight ? ` ${ Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(weight * 21) }` : <span className={`${data.status === 'PENDING' ? 'bg-red-200' : 'bg-lime-200'} px-2 py-1 `}>{data.status}</span>}.</Typography>
         </div>
         <div className="flex justify-between pt-12 sm:py-3">
           <div className="">

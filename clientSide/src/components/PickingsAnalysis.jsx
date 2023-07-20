@@ -10,21 +10,27 @@ const PickingsAnalysis = ({ bodyData }) => {
     const [startDate, setStartDate] = useState(new Date()- new Date(365*24*60*60*1000));
     const [endDate, setEndDate] = useState(new Date());
 
+    // let sortedData =
+
     let weights = [];
-    bodyData.map(pick => weights.push(pick.weight));
+    bodyData.sort((a, b) => a._id.month - b._id.month).map(pick => weights.push(pick.weight));
+
+    let month = [];
+    bodyData.sort((a, b) => a._id.month - b._id.month).map(pick => month.push(pick._id.month));
 
     const onChange = dates => {
         const [start, end] = dates;
         setStartDate(start);
         setEndDate(end);
     }
-    console.log(startDate,endDate);
+    // console.log(bodyData.sort((a, b) => a._id.month - b._id.month));
   return (
     <Box p={2} flex={1} bgcolor='#fcfcfc' flexDirection='column' borderRadius='15px'>
         <Stack direction='row' flex={1} alignItems='center' justifyContent='space-between' >
             <Typography fontSize={18} fontWeight={600} color='#11142d'>Monthly Totals</Typography>
             <Stack direction='row' fontSize={12} fontWeight={400} color='#11142d'> 
             <DatePicker
+            className='cursor-pointer outline-none'
             // id={startDateId}
             selected={startDate}
             selectsRange
@@ -42,6 +48,7 @@ const PickingsAnalysis = ({ bodyData }) => {
         </Stack>
         <BarChart
             weights={weights}
+            month={month}
         />
     </Box>
   )
