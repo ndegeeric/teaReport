@@ -7,7 +7,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './app.css';
 
-
+import "react-datepicker/dist/react-datepicker.css";
 import { Auth, Aside, Navbar } from './components';
 import { Dashboard, Expenses, ExpenseDetails, Pickings, Settings, ExpensesForm, PickingsForm, PickingDetails } from './pages';
 
@@ -18,7 +18,9 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(()=>{
-    if(JSON.parse(localStorage.getItem('profile')) ){
+
+    console.log(!JSON.parse(localStorage.getItem('profile')))
+    if(!JSON.parse(localStorage.getItem('profile'))){
       localStorage.clear();
       navigate('/');
     }
@@ -38,7 +40,7 @@ const App = () => {
   
   return (
     <div className='flex text-[#141545]'>
-    {user ? <Aside activeLink={activeLink} setActiveLink={setActiveLink} /> : ''}
+    { user ? <Aside activeLink={activeLink} setActiveLink={setActiveLink} /> : ''}
     <div className='w-full h-screen'>
       {user? <Navbar notification={ notification} setNotification={setNotification} activeLink={activeLink} setActiveLink={setActiveLink} /> : ''}
       <Routes>

@@ -19,8 +19,13 @@ const ExpenseDetails = () => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    dispatch(deleteExpense(id));
-    navigate('/expenses');
+    let confirm = window.confirm('Are you sure you want to delete Expenditure no: '  + id + '?');
+    if (confirm) {
+      dispatch(deleteExpense(id));
+      navigate('/expenses');
+    } else {
+      return;
+    }
   }
   
   const handlePaid = (e) => {

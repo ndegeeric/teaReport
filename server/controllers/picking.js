@@ -198,11 +198,10 @@ export const groupByMonth = async(req, res) => {
   const month = now.getMonth() +1;
   const year = now.getFullYear();
   const  monthlyStartDate = new Date(` 0${ month }-01-${ year } 00:00:00 GMT`);
-  const annualStartDate = new Date(now - 365*24*60*60*1000);
+  const annualStartDate = (now.getMonth() < 6 ) ? new Date(` 07-01-${ year - 1 } 00:00:00 GMT`) : new Date(` 07-01-${ year } 00:00:00 GMT`);
   const pickYr = `${now.getFullYear()-1} - ${now.getFullYear()}`
 
 
-  // console.log(startDate, now);
   try {
     const data = await PickingSchema.aggregate([
       { $match: { "createdAt": {
@@ -240,10 +239,22 @@ export const groupByMonth = async(req, res) => {
         '$gte': annualStartDate,
         '$lte': now
       }}},{
-        $group: { "_id": pickYr, 'annualExpenses': { '$sum': '$amount' }}
+        $project: {    
+          month: { $month: '$createdAt' },
+          year: { $year: '$createdAt' },
+          amount: 1
+        }
+      },
+      {
+        $group: { _id: {
+          month: { $month: '$createdAt' },
+          // year: { $year: '$createdAt' }
+        }, 'annualExpenses': { '$sum': '$amount' }}
       }
     ])
 
+    console.log(annualExpenses, now);
+    // console.log({'annualStartDate': (now.getMonth() < 6 ) })
     res.status(200).json({ data, lastOneYear, monthlyExpenses, annualExpenses});
     
   } catch (error) {

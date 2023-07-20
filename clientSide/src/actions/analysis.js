@@ -7,11 +7,11 @@ export const getMonthlyPicks = () => async(dispatch) => {
     dispatch({ type: 'MONTHLYPICKS', payload: data });
 } 
 
-// export const getAnnualPicks = () => async(dispatch) => {
-//     const { data } = await api.getAnnualPicks();
+export const fetchRangePicks = () => async(dispatch) => {
+    const { data } = await api.fetchRangePicks();
 
-//     dispatch({ type: 'ANNUALPICKS', data });
-// }
+    dispatch({ type: 'GANGEPICKS', data });
+}
 
 // export const getMonthlyExp = () => async(dispatch) => {
 //     const { data } = await api.getMonthlyExpenses();

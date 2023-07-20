@@ -20,8 +20,13 @@ const PickingDetails = () => {
   
     const handleDelete = (e) => {
       e.preventDefault();
-      dispatch(deleteCurrentPick(id));
-      navigate('/pickings');
+      let confirm =window.confirm('Are you sure you want to delete this picking no: ' + id +'?');
+      if (confirm) {
+        dispatch(deleteCurrentPick(id));
+        navigate('/pickings');
+      } else {
+        return;
+      }
     }
       
   return (
