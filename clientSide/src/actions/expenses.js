@@ -1,55 +1,79 @@
 import * as api from '../api/index.js';
+import { FETCHEXPENSE, FETCHEXPENSES, CREATEEXPENSE, UPDATEEXPENSE, DELETEEXPENSE, AUTH_ERROR } from '../util/constants.js';
 
-export const fetchExpense = (id) => async(dispatch) => {
+export const fetchExpense = (id, setErrorHandler) => async(dispatch) => {
     try {
         const { data } = await api.fetchExpense(id);
     
-        dispatch({ type: "FETCHEXPENSE", data})
+        dispatch({ type: FETCHEXPENSE, data})
         
     } catch (error) {
-        console.log(error);
+        if (error?.response?.data) {
+            dispatch({ type: AUTH_ERROR, message: error?.response?.data });
+            setErrorHandler({ hasError: true, message: error?.response?.data });
+        } else {
+            setErrorHandler({ hasError: true, message: `Server can not be reached.` });
+        }
     }
 }
 
-export const fetchExpenses = () => async(dispatch) => {
+export const fetchExpenses = (setErrorHandler) => async(dispatch) => {
     try {
         const { data } = await api.fetchExpenses();
 
-        dispatch({ type: 'FETCHEXPENSES', data })
+        dispatch({ type: FETCHEXPENSES, data })
     } catch (error) {
-        console.error(error);
+        if (error?.response?.data) {
+            // console.error(error.response)
+            dispatch({ type: AUTH_ERROR, message: error?.response?.data });
+            setErrorHandler({ hasError: true, message: error?.response?.data });
+        } 
     }
 }
 
-export const createExpense = (expenseData) => async(dispatch) => {
+export const createExpense = (expenseData, setErrorHandler) => async(dispatch) => {
     try {
 
         const { data } = await api.createExpense(expenseData);
 
-        dispatch({ type: 'CREATEEXPENSE', data  })
+        dispatch({ type: CREATEEXPENSE, data  })
         
     } catch (error) {
-        console.error(error);
+        if( error?.response?.data) {
+            dispatch({ type: AUTH_ERROR, message: error?.response?.data });
+            setErrorHandler({ hasError: true, message: error?.response?.data });
+        } else {
+            setErrorHandler({ hasError: true, message: `Server can not be reached` });
+        }
     }
 }
 
-export const updateExpense = (expenseData, _id) => async(dispatch) => {
+export const updateExpense = (expenseData, _id, setErrorHandler) => async(dispatch) => {
     try {
         const { data } = await api.updateExpense(expenseData, _id);
 
-        dispatch({ type: 'UPDATEEXPENSE', data })
+        dispatch({ type: UPDATEEXPENSE, data })
         
     } catch (error) {
-        console.log(error);
+        if( error?.response?.data) {
+            dispatch({ type: AUTH_ERROR, message: error?.response?.data });
+            setErrorHandler({ hasError: true, message: error?.response?.data });
+        } else {
+            setErrorHandler({ hasError: true, message: `Server can not be reached.` });
+        }
     }
 }
 
-export const deleteExpense = (id) => async (dispatch) => {
+export const deleteExpense = (id, setErrorHandler) => async (dispatch) => {
     try {
         await api.deleteExpense(id);
-        // console.log('id: ' + id);
-        dispatch({ type: 'DELETEEXPENSE', data: id })
+        dispatch({ type: DELETEEXPENSE, data: id })
     } catch (error) {
-        console.log(error);
+        if (error?.response?.data) {
+            dispatch({ type: AUTH_ERROR, message: error?.response?.data });
+            setErrorHandler({ hasError: true, message: error?.response?.data });
+        } else {
+            setErrorHandler({ hasError: true, message: `Server can not be reached.` });
+        }
     }
 }

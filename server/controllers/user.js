@@ -43,7 +43,7 @@ export const login = async(req, res) => {
 
         if(!isPasswordCorrect) return res.status(403).json({ message: `User not authenticated. User password is incorrect`});
 
-        const token = jwt.sign({ email: isExistingUser.email, id: isExistingUser._id}, secret, { expiresIn: '1h' });
+        const token = jwt.sign({ email: isExistingUser.email, id: isExistingUser._id}, secret, { expiresIn: '1m' });
 
         const user =  { name: isExistingUser.name, email: isExistingUser.email };
 

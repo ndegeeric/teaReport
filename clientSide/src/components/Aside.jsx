@@ -53,8 +53,8 @@ const Aside = ({ activeLink, setActiveLink }) => {
             <AsideLink icon={<BackupTableOutlined />} title='Pickings' activeLink={activeLink} setActiveLink={setActiveLink} to={'/pickings'} chevron={<ChevronRightOutlined />} />
             <AsideLink icon={<AttachMoneyOutlined />} title='Expenses' activeLink={activeLink} setActiveLink={setActiveLink} to={'/expenses'} chevron={<ChevronRightOutlined />} />
             <AsideLink icon={<SettingsOutlined />} title='Settings' activeLink={activeLink} setActiveLink={setActiveLink} to={'/settings'} chevron={<ChevronRightOutlined />} />
-            <AsideLink icon={<CreateOutlined />} title='Pick' activeLink={activeLink} setActiveLink={setActiveLink} to={'/pickingsForm'} chevron={<ChevronRightOutlined />} />
-            <AsideLink icon={<CreateOutlined />} title='Expense' activeLink={activeLink} setActiveLink={setActiveLink} to={'/form'} chevron={<ChevronRightOutlined />} />
+            <AsideLink icon={<CreateOutlined />} title='Picking Form' activeLink={activeLink} setActiveLink={setActiveLink} to={'/pickingsForm'} chevron={<ChevronRightOutlined />} />
+            <AsideLink icon={<CreateOutlined />} title='Expense Form' activeLink={activeLink} setActiveLink={setActiveLink} to={'/form'} chevron={<ChevronRightOutlined />} />
             
           </div>
         </div>

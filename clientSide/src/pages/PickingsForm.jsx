@@ -29,14 +29,13 @@ const Form = () => {
     setPickData(initialState);
     navigate('/pickings');
   }
-
   
   const handleSubmit = () => {
     if(id){
       dispatch(updatePick(pickData, id, setErrorHandler));
     }else{
       dispatch(createPick(pickData, setErrorHandler));
-      dispatch(createExpense({  expenseType: 'Picking Wage', narration: `${pickData.weight} kgs @ Ksh 12/kg.`, amount: pickData.weight * 12, status: undefined}))
+      dispatch(createExpense({  expenseType: 'Picking Wage', narration: `${pickData.weight} kgs @ Ksh 12/kg.`, amount: pickData.weight * 12, status: undefined}, setErrorHandler))
     }
     setPickData(initialState);
     clearForm();
@@ -50,10 +49,10 @@ const Form = () => {
   // };
 
   return (
-    <Box className='md:m-5 m-1 mb-5 w-[80vw]'>
+    <Box className='flex flex-col items-center md:m-5 m-1 mb-5 w-[96%]'>
       <Typography fontSize={25} fontWeight={700} color='#11142d'marginLeft={2} >{ id ? 'Edit' : 'Enter' } the Picking data.</Typography>
       <ErrorAuth errorHandler={errorHandler} setErrorHandler={setErrorHandler} />
-      <Box className='sm:mt-2.5 mt-1 sm:p-[20px]' borderRadius='15px' bgcolor='#fcfcfc'>
+      <Box className='sm:mt-2.5 flex items-center w-full mt-1 sm:p-[20px]' borderRadius='15px' bgcolor='#fcfcfc'>
         <form style={{ 
           md:{marginTop: '20px'}, marginTop: '0', width: '100%', display: 'flex', flexDirection: 'column', gap: '20px'
         }}>
@@ -64,7 +63,7 @@ const Form = () => {
             <TextField fullWidth name='weight' value={pickData.weight} onChange={(e)=> setPickData({ ...pickData, weight: e.target.value })} placeholder='123.50' />
           </FormControl>
           <Button variant='contained' onClick={handleSubmit} fullWidth>Save</Button>
-          <Button onClick={clearForm}>Clear Form</Button>
+          <Button fullWidth onClick={clearForm}>Clear Form</Button>
         </form>
       </Box>
     </Box>

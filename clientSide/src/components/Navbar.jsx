@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import decode from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 import { Box, Typography, Avatar } from '@mui/material';
 import { MenuOutlined, CloseOutlined, SearchOutlined, NotificationAddOutlined } from '@mui/icons-material';
@@ -11,27 +12,48 @@ const Navbar = ({ activeLink, setActiveLink, notification, setNotification }) =>
 
     const [profile] = useState(JSON.parse(localStorage.getItem('profile')));
     const [showMobileMenu, setShowMobileMenu] = useState(false);
-    
+    const location = useLocation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+
+        if (profile?.token) {
+            const decodedToken = decode(profile.token);
+            if (decodedToken.exp * 1000 < new Date().getTime()) {
+                console.log('Expired token: ' + decodedToken);
+                dispatch(logout(navigate));
+                localStorage.clear();
+            }
+
+        } else {
+            logout(navigate);
+        }
+     //eslint-disable-next-line
+    },[location]);
+    
     
     const MobileMenu = () => {
         const dispatch = useDispatch();
         
         const handleLogout = (e) => {
             e.preventDefault();
-            dispatch(logout(navigate))
+            dispatch(logout(navigate));
+            // navigate('/');
         };
 
         const openExpenseForm = (e) => {
             e.preventDefault();
             navigate('/form');
             setShowMobileMenu(false);
+            setActiveLink('Expense Form');
         }
 
         const openPickingForm = (e) => {
             e.preventDefault();
             navigate('/pickingsForm');
             setShowMobileMenu(false);
+            setActiveLink('Picking Form');
         }
 
         return (

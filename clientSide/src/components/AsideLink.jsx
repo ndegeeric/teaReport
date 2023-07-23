@@ -17,7 +17,7 @@ const AsideLink = ({ icon, title, activeLink, setActiveLink, chevron, showMobile
   }
   return (
     
-    <Link className={`flex gap-2 w-full p-2 mt-2 ${addStyles}`} onClick={ handleClick }>
+    <Link className={`flex items-center gap-2 w-full p-2 mt-2 ${addStyles}`} onClick={ handleClick }>
         <div className="text-xs font-gray-400">
           {icon}
         </div>

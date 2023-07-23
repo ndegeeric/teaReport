@@ -38,12 +38,13 @@ export const signUp = (formData, navigate, setErrorHandler) => async(dispatch) =
             data: error?.response?.data?.message
         })
         setErrorHandler({ hasError: true, message: error?.response?.data?.message });
-       } 
+       } else {
+        setErrorHandler({ hasError: true, message: `Server can not be reached.` })
+       }
     }
 }
 
 export const logout = (navigate) => async(dispatch) => {
-    dispatch({ type: 'LOGOUT'})
-
+    dispatch({ type: 'LOGOUT' })
     navigate('/')
 }

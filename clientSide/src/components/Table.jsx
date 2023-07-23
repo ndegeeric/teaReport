@@ -1,16 +1,10 @@
 import React from 'react';
 import { dateFormatter } from '../util/dateFormatter'; 
-// import { useSelector, useDispatch } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
 const Table = ({ tableHeader, bodyData }) => {
-    // const { data } = useSelector( state => state.expenses)
-
-    // useEffect(()=> {
-
-    // }, []);
-
+   
   return (
     <>
         <table className='w-[95%]'>

@@ -16,7 +16,7 @@ export const getOnePick = async(req, res) => {
 export const getPicked = async(req, res) => {
 
     try {
-        const data = await PickingSchema.find();
+        const data = await PickingSchema.find().sort({_id: -1});
         
         res.status(200).send(data);
         
@@ -93,7 +93,7 @@ export const getOneExpense = async(req, res) => {
 export const getExpenses = async(req, res) => {
   // console.log('here')
   try {
-    const data = await Expenses.find();
+    const data = await Expenses.find().sort({ _id: -1 });
 
     res.status(200).send(data);
   } catch (error) {
@@ -153,37 +153,61 @@ export const deleteExpense = async(req, res) => {
 }
 
 export const monthlyTotals = async(req, res) => {
-    const { startDate, endDate } = req.body || {};
+    const { startDate, endDate } = req.body;
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const year = now.getFullYear()
+    const annualStartDate = (now.getMonth() < 6 ) ? new Date(` 07-01-${ year - 1 } 00:00:00 GMT`) : new Date(` 07-01-${ year } 00:00:00 GMT`);
 
     try {
-        const data = await PickingSchema.aggregate(
-            [
-                {
-                  '$match': {
-                    'createdAt': {
-                      '$gte': new Date(startDate), 
-                      '$lte': new Date(endDate)
-                    }
-                  }
-                }, {
-                  '$group': {
-                    '_id': {
-                      '$cond': [
-                        {
-                          'lt': ''
-                        },
-                         `${ startDate } - ${ endDate }`, '0'
-                      ]
-                    }, 
-                    'total': {
-                      '$sum': '$weight'
-                    }
+      const data = await PickingSchema.aggregate(
+          [
+              {
+                '$match': {
+                  'createdAt': {
+                    '$gte': new Date(startDate), 
+                    '$lte': new Date(endDate)
                   }
                 }
-              ]
-        );
+              }, {
+                '$group': {
+                  '_id': {
+                    '$cond': [
+                      {
+                        'lt': ''
+                      },
+                       `${ startDate } - ${ endDate }`, '0'
+                    ]
+                  }, 
+                  'total': {
+                    '$sum': '$weight'
+                  }
+                }
+              }
+            ]
+      );
 
-        res.status(200).json( data );
+        const eachMonthTotals = await PickingSchema.aggregate([
+          {
+            $match: { 'createdAt': {
+              '$gte': new Date(startDate),
+              '$lte': new Date(endDate)
+            }}
+          },
+          {
+            $group: {
+              _id: { 
+                 $month: '$createdAt' ,
+              },
+              weight: { $sum: '$weight'},
+            }
+          }
+        ]);
+
+        // console.log(startDate, endDate);
+      // console.log(eachMonthTotal);
+
+        res.status(200).json( eachMonthTotals );
     } catch (error) {
         console.log(error);
         res.status(404).json({ message: error.message });
@@ -195,7 +219,7 @@ export const groupByMonth = async(req, res) => {
   const now = new Date();
   // const oneYr = new Date(now - (365*24*60*60*1000))
   // const endDate = new Date(`Wed, 30 June 2023 23:59:46 GMT`);
-  const month = now.getMonth() +1;
+  const month = now.getMonth() + 1;
   const year = now.getFullYear();
   const  monthlyStartDate = new Date(` 0${ month }-01-${ year } 00:00:00 GMT`);
   const annualStartDate = (now.getMonth() < 6 ) ? new Date(` 07-01-${ year - 1 } 00:00:00 GMT`) : new Date(` 07-01-${ year } 00:00:00 GMT`);
@@ -274,7 +298,7 @@ export const groupByMonth = async(req, res) => {
       }
     ])
 
-    console.log(eachMonthTotal);
+    // console.log(eachMonthTotal);
     // console.log({'annualStartDate': (now.getMonth() < 6 ) })
     res.status(200).json({ data, lastOneYear, monthlyExpenses, annualExpenses, eachMonthTotal});
     

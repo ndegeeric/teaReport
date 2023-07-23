@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation,useNavigate } from 'react-router-dom';
 
 import { createExpense, updateExpense } from '../actions/expenses';
+import { ErrorAuth } from '../components';
 
 const initialState = { expenseType: '', narration: '', amount: 0, status: undefined };
 
@@ -12,8 +13,9 @@ const ExpensesForm = () => {
   const navigate = useNavigate();
   const { id } = state || {};
   const dispatch = useDispatch();
-  const [ data ] = useSelector( state => state.expenses.filter( expense => expense._id === id ) );
+  const [ data ] = useSelector( state => state.expenses.filter(exp => exp._id === id) );
   const [expenseData, setExpenseData] = useState(initialState);
+  const [errorHandler, setErrorHandler] = useState({ hasError: false, message: ''})
   const [isEdit, setIsEdit] = useState(false)
 
   useEffect(()=> {
@@ -22,13 +24,18 @@ const ExpensesForm = () => {
       setIsEdit(true)
     }
   },[data, id]);
+
+  const clearForm = () => {
+    setExpenseData(initialState);
+    navigate('/expenses');
+  }
   
   const handleSubmit = (e) => {
     e.preventDefault();
     if(isEdit) {
-      dispatch(updateExpense(expenseData, id ))
+      dispatch(updateExpense(expenseData, id, setErrorHandler ))
     } else {
-      dispatch(createExpense(expenseData));
+      dispatch(createExpense(expenseData, setErrorHandler));
     }
     
     setExpenseData(initialState);
@@ -37,6 +44,7 @@ const ExpensesForm = () => {
 
   return (
     <div>
+      <ErrorAuth errorHandler={errorHandler} setErrorHandler={setErrorHandler} />
         <form className='p-3 md:p-10'>
           <Typography sx={{ paddingBottom: '2rem', fontSize: '2rem'}}>{ isEdit ? 'Edit The Expense': 'Enter The Expense' } </Typography>
             <FormControl className='w-full' sx={{marginBottom: '10px'}}>
@@ -67,6 +75,7 @@ const ExpensesForm = () => {
               </FormControl>
             )}
             <Button className='w-full' sx={{ backgroundColor: '#0000ff', color: '#ffffff', marginTop: '20px', '&:hover': {color: '#0000ff'}}} onClick={ handleSubmit }>Submit</Button>
+            <Button className='w-full' sx={{  color: '#0000ff', marginTop: '20px', '&:hover': {color: '#0000ff'}}} onClick={ clearForm }>Clear Form</Button>
         </form>
     </div>
   )

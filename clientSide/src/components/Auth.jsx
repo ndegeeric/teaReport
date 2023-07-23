@@ -14,7 +14,7 @@ const Auth = () => {
     const initialState = { firstname: '', lastname: '', email: '', password: '', cpassword: '' }
     const [isSignup, setIsSignup] = useState(false);
     const [formData, setFormData] = useState(initialState);
-    const [errorHandler, setErrorHandler] = useState({hasError: false, message: ""})
+    const [errorHandler, setErrorHandler] = useState({ hasError: false, message: ""})
 
     const dispatch = useDispatch();
     const navigate = useNavigate();

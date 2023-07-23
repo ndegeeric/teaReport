@@ -5,8 +5,8 @@ const analysisReducer = (analysis=[], action) => {
         case 'MONTHLYPICKS':
             return action.payload;          
         
-        // case 'ANNUALPICKS':
-        //     return [ ...analysis, action.data ];
+        // case 'GANGEPICKS':
+        //     return  action.data ;
 
         // case 'MONTHLYEXPENSIS':
         //     return [ ...analysis, action.payload ];

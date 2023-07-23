@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { BarChart } from '../components';
 import { Box, Stack, Typography } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
+import { fetchRangePicks } from '../actions/analysis';
 
 const PickingsAnalysis = ({ bodyData }) => {
-    // const [inputData, setInputData] = useState({startDate: '', endDate: '',});
-    const [startDate, setStartDate] = useState(new Date()- new Date(365*24*60*60*1000));
+    const dispatch = useDispatch();
+    const now = new Date();
+    const year = now.getFullYear();
+    const monthYr = now.getMonth() + 1;
+    const [startDate, setStartDate] = useState(monthYr <= 6 ? new Date(` 07-01-${ year - 1 } 00:00:00 GMT`) : new Date(` 07-01-${ year } 00:00:00 GMT` ));
     const [endDate, setEndDate] = useState(new Date());
 
-    // let sortedData =
+    // const data = useSelector( state => state.analysis);
+
+    // console.log(data);
 
     let weights = [];
     bodyData.sort((a, b) => a._id.month - b._id.month).map(pick => weights.push(pick.weight));
@@ -18,11 +25,15 @@ const PickingsAnalysis = ({ bodyData }) => {
     let month = [];
     bodyData.sort((a, b) => a._id.month - b._id.month).map(pick => month.push(pick._id.month));
 
-    const onChange = dates => {
+    const onChange = async(dates) => {
         const [start, end] = dates;
         setStartDate(start);
         setEndDate(end);
     }
+
+    useEffect(()=> {
+        dispatch(fetchRangePicks({ startDate: startDate, endDate: endDate }));
+    },[startDate,endDate, dispatch]);
     // console.log(bodyData.sort((a, b) => a._id.month - b._id.month));
   return (
     <Box p={2} flex={1} bgcolor='#fcfcfc' flexDirection='column' borderRadius='15px'>
