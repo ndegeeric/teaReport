@@ -20,11 +20,11 @@ export const signup = async(req, res) => {
         
         const hashedPassword = await bcrypt.hash(password, 12);
                 
-        const newUser = await User.create({ email, name: `${ firstname } ${ lastname }`, password: hashedPassword });
+        // const newUser = await User.create({ email, name: `${ firstname } ${ lastname }`, password: hashedPassword });
 
         const token = jwt.sign({ email: newUser.email, id: newUser._id }, secret, { expiresIn: '1h'})
         
-        res.status(200).json({user: newUser, token});
+        res.status(404).json({message: `Temporally disabled`});
     } catch (error) {
         res.status(500).json({ message: `Server error, contact the administrator`});
     }

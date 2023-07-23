@@ -4167,3 +4167,4 @@
 20230723	14:51:27	836d9a1e-8ff8-4066-a91f-072d574b33f4	GET	http://localhost:3000	/api/rcd	undefined
 20230723	14:51:41	2cb4c53a-2655-410c-acfb-aefe53945150	GET	http://localhost:3000	/api/expenses	undefined
 20230723	14:51:41	bb198bb2-31c0-41ac-85f9-bfdf63372919	GET	http://localhost:3000	/api/expenses	undefined
+20230723	15:00:51	329180c5-573e-40f6-aaf6-9f0f83a2a1d0	GET	http://localhost:3000	/api/expenses	undefined
