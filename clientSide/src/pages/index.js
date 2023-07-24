@@ -7,3 +7,4 @@ export { default as Settings } from './Settings';
 export { default as ExpensesForm } from './ExpensesForm';
 export { default as PickingsForm } from './PickingsForm';
 export { default as PickingDetails } from './PickingDetails';
+export { default as Auth } from './Auth';

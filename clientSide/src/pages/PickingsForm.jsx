@@ -7,7 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { createExpense } from '../actions/expenses';
 import {ErrorAuth} from '../components';
 
-const Form = () => {
+const Form = ({ setActiveLink }) => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const { id } = state || {};
@@ -27,6 +27,7 @@ const Form = () => {
 
   const clearForm = () => {
     setPickData(initialState);
+    setActiveLink('Pickings');
     navigate('/pickings');
   }
   
@@ -38,6 +39,8 @@ const Form = () => {
       dispatch(createExpense({  expenseType: 'Picking Wage', narration: `${pickData.weight} kgs @ Ksh 12/kg.`, amount: pickData.weight * 12, status: undefined}, setErrorHandler))
     }
     setPickData(initialState);
+    setActiveLink('Pickings');
+    navigate('/pickings');
     clearForm();
   }
   

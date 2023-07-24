@@ -12,6 +12,10 @@ export const signup = async(req, res) => {
     const { email, firstname, lastname, password, cpassword } = req.body;
 
     try {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if (!re.test(email)) return res.status(404).json({ message: `You must enter a valid email address.`});
+
         const isExistingUser = await User.findOne({ email });
 
         if(isExistingUser) return res.status(404).json({ message: `User with this email is already registered`});

@@ -44,7 +44,7 @@ const Dashboard = () => {
       <div className="grid md:grid-cols-[3fr_minmax(auto,_1fr)] p-3 ">
         <div className="grid md:grid-rows-[1fr_minmax(auto,_2.19fr),1fr] h-full">
           <div className='grid grid-row-1 md:grid-cols-3 gap-2 items-center justify-center  md:gap-4 pb-3'>
-            <Feature  subsValue={`Monthly`} value={` ${ new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(monthlyPicks) }`} icon={isIncrease ? <ArrowCircleUpOutlined sx={{color: '#26ca71'}} /> : <ArrowCircleDownOutlined sx={{color: '#ff3d3d'}} />} title={'monthly Picked'} percentage={'+15%'} addStyles={'bg-sky-50'} />
+            <Feature  subsValue={`Monthly`} value={` ${ new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(monthlyPicks) }`} icon={isIncrease ? <ArrowCircleUpOutlined sx={{color: '#26ca71'}} /> : <ArrowCircleDownOutlined sx={{color: '#ff3d3d'}} />} title={'Monthly Picked'} percentage={'+15%'} addStyles={'bg-sky-50'} />
             <Feature title='Monthly Income' subsValue='monthly' value={` ${ new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(monthlyPicks * 21) }`} icon={isIncrease ? <ArrowCircleUpOutlined sx={{color: '#26ca71'}} /> : <ArrowCircleDownOutlined sx={{color: '#ff3d3d'}} />} percentage={'-2%'} addStyles={'bg-green-50'} />
             <Feature  subsValue={`Monthly`} value={` ${ new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(monthlyExpenses) }`} icon={isIncrease ? <ArrowCircleUpOutlined sx={{color: '#26ca71'}} /> : <ArrowCircleDownOutlined sx={{color: '#ff3d3d'}} />} title={'Monthly Expenses'} percentage={'-7%'} addStyles={'bg-orange-50'} />
           </div>

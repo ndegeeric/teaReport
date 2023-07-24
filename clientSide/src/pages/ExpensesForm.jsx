@@ -8,7 +8,7 @@ import { ErrorAuth } from '../components';
 
 const initialState = { expenseType: '', narration: '', amount: 0, status: undefined };
 
-const ExpensesForm = () => {
+const ExpensesForm = ({ setActiveLink }) => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const { id } = state || {};
@@ -27,6 +27,7 @@ const ExpensesForm = () => {
 
   const clearForm = () => {
     setExpenseData(initialState);
+    setActiveLink('Expenses');
     navigate('/expenses');
   }
   
@@ -39,6 +40,7 @@ const ExpensesForm = () => {
     }
     
     setExpenseData(initialState);
+    setActiveLink('Expenses');
     navigate('/expenses')
   }
 

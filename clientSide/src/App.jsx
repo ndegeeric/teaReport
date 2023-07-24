@@ -7,8 +7,8 @@ import '@fontsource/roboto/700.css';
 import './app.css';
 
 import "react-datepicker/dist/react-datepicker.css";
-import { Auth, Aside, Navbar } from './components';
-import { Dashboard, Expenses, ExpenseDetails, Pickings, Settings, ExpensesForm, PickingsForm, PickingDetails } from './pages';
+import { Aside, Navbar } from './components';
+import { Dashboard, Auth, Expenses, ExpenseDetails, Pickings, Settings, ExpensesForm, PickingsForm, PickingDetails } from './pages';
 
 const App = () => {
   const [activeLink, setActiveLink] = useState('Overview');
@@ -17,7 +17,7 @@ const App = () => {
   const navigate = useNavigate();
   
   useEffect(()=>{  
-    if(JSON.parse(localStorage.getItem('profile'))){
+    if(!JSON.parse(localStorage.getItem('profile'))){
       localStorage.clear();
       navigate('/');
     }
@@ -48,8 +48,8 @@ const App = () => {
         <Route path='/expenses' element={<Expenses />} />
         <Route path='/expenseDetails/:id' element={ <ExpenseDetails />} />
         <Route path='/settings' element={ <Settings />} />
-        <Route path='/form' element={ <ExpensesForm /> } />
-        <Route path= '/pickingsForm' element={ <PickingsForm /> } />
+        <Route path='/form' element={ <ExpensesForm setActiveLink={setActiveLink} /> } />
+        <Route path= '/pickingsForm' element={ <PickingsForm setActiveLink={setActiveLink} /> } />
         <Route path='/pickingDetails/:id' element={ <PickingDetails />} />
       </Routes>
     </div>
