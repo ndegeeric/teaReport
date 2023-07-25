@@ -48,7 +48,7 @@ const Aside = ({ activeLink, setActiveLink }) => {
                 <div className="">Ontime TMS</div>
             </Link>
           </div>
-          <div className="flex flex-col">
+          <div className="block">
             <AsideLink icon={<DashboardOutlined />} title='Overview' activeLink={activeLink} setActiveLink={setActiveLink} to={'/dashboard'} chevron={<ChevronRightOutlined />} />
             <AsideLink icon={<BackupTableOutlined />} title='Pickings' activeLink={activeLink} setActiveLink={setActiveLink} to={'/pickings'} chevron={<ChevronRightOutlined />} />
             <AsideLink icon={<AttachMoneyOutlined />} title='Expenses' activeLink={activeLink} setActiveLink={setActiveLink} to={'/expenses'} chevron={<ChevronRightOutlined />} />

@@ -2,7 +2,7 @@ import React from 'react';
 // import { Box } from '@mui/material';
 import ReactApexChart from 'react-apexcharts';
 
-const BarChart = ({ weights }) => {
+const BarChart = ({ weights, month }) => {
   // const i = weights.map((weights, index) => index + 1)
   // let months = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
   // let monthName = months[month['month']]
@@ -23,8 +23,8 @@ const BarChart = ({ weights }) => {
                 toolbar: { show: false, },
               },
               xaxis: {
-                // categories: month
-                categories: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+                categories: month
+                // categories: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
               },
               yaxis: {
                 title: {

@@ -14,11 +14,15 @@ export const signup = async(req, res) => {
     try {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-        if (!re.test(email)) return res.status(404).json({ message: `You must enter a valid email address.`});
+        if (!re.test(email)) return res.status(403).json({ message: `You must enter a valid email address.`});
 
         const isExistingUser = await User.findOne({ email });
 
-        if(isExistingUser) return res.status(404).json({ message: `User with this email is already registered`});
+        if(isExistingUser) return res.status(403).json({ message: `User with this email is already registered`});
+
+        const reg = /^(?=(.*[a-z]){3,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$/
+
+        if (!reg.test('P@ssw0rd')) return res.status(403).json({ message: 'Password must contain uppercase and special characters'})
 
         if ( password !== cpassword )  return res.status(403).json({ message: `passwords don't match` });
         

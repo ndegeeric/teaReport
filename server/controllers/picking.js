@@ -201,6 +201,9 @@ export const monthlyTotals = async(req, res) => {
               },
               weight: { $sum: '$weight'},
             }
+          },{
+            
+            $sort: { _id: 1}
           }
         ]);
 

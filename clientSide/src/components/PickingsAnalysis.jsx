@@ -5,26 +5,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BarChart } from '../components';
 import { Box, Stack, Typography } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
-import { fetchRangePicks } from '../actions/analysis';
+import { getRangeData } from '../actions/rangeData';
 
-const PickingsAnalysis = ({ bodyData }) => {
+const PickingsAnalysis = () => {
     const dispatch = useDispatch();
     const now = new Date();
-    const year = now.getFullYear();
-    const monthYr = now.getMonth() + 1;
-    const [startDate, setStartDate] = useState(monthYr <= 6 ? new Date(` 07-01-${ year - 1 } 00:00:00 GMT`) : new Date(` 07-01-${ year } 00:00:00 GMT` ));
+    // const year = now.getFullYear();
+    // const monthYr = now.getMonth() + 1;
+    // monthYr <= 6 ? new Date(` 07-01-${ year - 1 } 00:00:00 GMT`) : new Date(` 07-01-${ year } 00:00:00 GMT` )
+    const [startDate, setStartDate] = useState(now - 365 * 24 * 60 * 60 * 1000);
     const [endDate, setEndDate] = useState(new Date());
 
-    // const data = useSelector( state => state.analysis);
+    const  data  = useSelector( state => state.rangeData);
 
-    // console.log(data);
-
-    let weights = [];
-    bodyData.sort((a, b) => a._id.month - b._id.month).map(pick => weights.push(pick.weight));
-
-    let month = [];
-    bodyData.sort((a, b) => a._id.month - b._id.month).map(pick => month.push(pick._id.month));
-
+    let weights =  data.map(item => item.weight);
+    
+    const categories = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    let months = data.map(item => categories[item._id - 1] );
+    
     const onChange = async(dates) => {
         const [start, end] = dates;
         setStartDate(start);
@@ -32,7 +30,7 @@ const PickingsAnalysis = ({ bodyData }) => {
     }
 
     useEffect(()=> {
-        dispatch(fetchRangePicks({ startDate: startDate, endDate: endDate }));
+        dispatch(getRangeData({ startDate: startDate, endDate: endDate }));
     },[startDate,endDate, dispatch]);
     // console.log(bodyData.sort((a, b) => a._id.month - b._id.month));
   return (
@@ -59,7 +57,7 @@ const PickingsAnalysis = ({ bodyData }) => {
         </Stack>
         <BarChart
             weights={weights}
-            month={month}
+            month={months}
         />
     </Box>
   )

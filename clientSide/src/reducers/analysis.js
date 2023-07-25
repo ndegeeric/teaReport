@@ -1,8 +1,8 @@
-
+import { MONTHLYPICKS } from '../util/constants';
 
 const analysisReducer = (analysis=[], action) => {
     switch (action.type) {
-        case 'MONTHLYPICKS':
+        case MONTHLYPICKS:
             return action.payload;          
         
         // case 'GANGEPICKS':
