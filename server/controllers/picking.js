@@ -251,6 +251,26 @@ export const groupByMonth = async(req, res) => {
 
     ])
 
+    const eachMonthTotal = await PickingSchema.aggregate([
+      {
+        $match: { 'createdAt': {
+          '$gte': monthlyStartDate,
+          '$lte': now
+        }}
+      },
+      {
+        $group: {
+          _id: { 
+             $month: '$createdAt' ,
+          },
+          weight: { $sum: '$weight'},
+        }
+      },{
+        
+        $sort: { _id: 1}
+      }
+    ]);
+
     const monthlyExpenses = await Expenses.aggregate([
       { $match : {"createdAt": {
           '$gte': monthlyStartDate,
@@ -283,7 +303,7 @@ export const groupByMonth = async(req, res) => {
       }
     ]);
 
-    const eachMonthTotal = await PickingSchema.aggregate([
+    const eachMonthExpenses = await Expenses.aggregate([
       {
         $match: { 'createdAt': {
           '$gte': annualStartDate,
@@ -293,17 +313,54 @@ export const groupByMonth = async(req, res) => {
       {
         $group: {
           _id: { 
-            month: { $month: '$createdAt' },
+            $month: '$createdAt' 
             // year: { $year: '$createdAt' },
           },
-          weight: { $sum: '$weight'},
+          amount: { $sum: '$amount' },
         }
       }
     ])
 
-    // console.log(eachMonthTotal);
+    const eachYearPicks = await PickingSchema.aggregate([
+      {
+        $match: { 'createdAt': {
+          '$gte': new Date(annualStartDate - (365 * 24 * 60 * 60 * 1000)),
+          '$lte': now
+        }}
+      },
+      {
+        $group: {
+          _id: {
+            $year: '$createdAt'
+          },
+          weight: { $sum: '$weight' }
+        }
+      }
+    ]);
+
+    const eachYearExpenses = await Expenses.aggregate([
+      {
+        $match: { 'createdAt': {
+          '$gte': new Date(annualStartDate - ( 365 * 24 * 60 * 60 * 1000)),
+          '$lte': now
+        }}
+      }, {
+        $group: {
+          _id: {
+            $year: '$createdAt'
+          },
+          amount: { $sum: '$amount' }
+        }
+      }
+    ])
+
+    // console.log(eachYearExpenses);
     // console.log({'annualStartDate': (now.getMonth() < 6 ) })
-    res.status(200).json({ data, lastOneYear, monthlyExpenses, annualExpenses, eachMonthTotal});
+    res.status(200).json({ 
+      data, lastOneYear, monthlyExpenses,
+      annualExpenses, eachMonthExpenses, 
+      eachMonthTotal, eachYearPicks, eachYearExpenses
+    });
     
   } catch (error) {
     console.log(error);

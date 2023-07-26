@@ -30,7 +30,7 @@ const PickingDetails = () => {
     }
       
   return (
-    <div>
+    <div className='pt-10 md:pt-5 md:px-10'>
       <ErrorAuth errorHandler={errorHandler} setErrorHandler={setErrorHandler} />
       <DetailsCard data={ data } 
           handleEdit={ handleEdit } handleDelete={ handleDelete } 

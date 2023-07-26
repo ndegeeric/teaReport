@@ -19,12 +19,12 @@ const DetailsCard = ({ handlePaid, handleEdit, handleDelete, data }) => {
   
   return (
     <Box className={`p-4 `}>
-        <img className='h-[250px]  w-full' src={teaImage} alt="ontimeTMS" />
+        <img className='h-[300px] md:h-[250px]  w-full' src={teaImage} alt="ontimeTMS" />
         <div className='flex justify-between py-6 sm:py-3'>
           <Typography sx={{ fontWeight: 'bold', fontSize: '18px'}}>{`${ weight ? 'Pickings' : data.expenseType}`}</Typography>
           <Typography sx={{ fontWeight: 'bold', fontSize: '18px'}}>{dateFormatter(data.createdAt)}</Typography>
         </div>
-        <div className="pt-5 sm:pt-0">
+        <div className="pt-10 sm:pt-0">
           <Typography className='text-center pb-3' sx={{ fontWeight: 'bold', fontSize: '25px' }}>Details Of the {`${ weight? 'Dairy Picking' : 'Expense' }`}</Typography>
           <Typography><span className='font-[400] text-xl mt-4'>{`${ weight ? 'Weight' : 'Narration'}`}:</span> {weight ? `${ weight } Kgs.` : data.narration}</Typography>
           <Typography><span className='font-[400] text-xl'>Amount: </span> {`${weight ? Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(weight * 21) : Intl.NumberFormat().format(data.amount) }.`}</Typography>

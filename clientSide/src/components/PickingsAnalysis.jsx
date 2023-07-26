@@ -32,7 +32,6 @@ const PickingsAnalysis = () => {
     useEffect(()=> {
         dispatch(getRangeData({ startDate: startDate, endDate: endDate }));
     },[startDate,endDate, dispatch]);
-    // console.log(bodyData.sort((a, b) => a._id.month - b._id.month));
   return (
     <Box p={2} flex={1} bgcolor='#fcfcfc' flexDirection='column' borderRadius='15px'>
         <Stack direction='row' flex={1} alignItems='center' justifyContent='space-between' >
@@ -51,8 +50,7 @@ const PickingsAnalysis = () => {
             // locale={selectLocale(locale)}
             // customInput={<CustomInput />}
             />
-            {/* <input className='cursor-pointer outline-none border-none bg-transparent' value={`${inputData.startDate} - ${inputData.endDate}`} onChange={onChange} type="date" name="startDate" id="" /> */}
-            <ExpandMore sx={{ fontSize: 16,  }} />
+                <ExpandMore sx={{ fontSize: 16,  }} />
             </Stack>
         </Stack>
         <BarChart
