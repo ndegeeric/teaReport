@@ -12,7 +12,7 @@ export const getMonthlyPicks = (setErrorHandler) => async(dispatch) => {
             dispatch({ type: AUTH_ERROR, message: error?.response?.data })
             setErrorHandler({ hasError: true, message: error?.response?.data })
         } else {
-            setErrorHandler({ hasError: `Server cannot be reached`});
+            setErrorHandler({ hasError: `A Server Error occurred. Please try again later`});
         }
     }
 } 

@@ -12,7 +12,7 @@ export const getPicks = (setErrorHandler) => async(dispatch) => {
             dispatch({ type: AUTH_ERROR, message: error?.response?.data})
             setErrorHandler({ hasError: true, message: error?.response?.data})
         }else {
-            setErrorHandler({ hasError: true, message: `Server can not be reached` });
+            setErrorHandler({ hasError: true, message: `A Server Error occurred. Please try again later.` });
         };
     }
 }
@@ -30,7 +30,7 @@ export const createPick = (pickData, setErrorHandler) => async(dispatch) => {
             })
             setErrorHandler({ hasError: true, message: error?.response?.data});
         }else{
-            setErrorHandler({ hasError: true, message: `Server can not be reached.`});
+            setErrorHandler({ hasError: true, message: `Server can not be reachedA Server Error occurred. Please try again later.`});
         }
     }
 }
@@ -49,7 +49,7 @@ export const updatePick = (updatedPickData, _id, setErrorHandler) => async (disp
             })
             setErrorHandler({ hasError: true, message: error?.response?.data});
         }else {
-            setErrorHandler({ hasError: true, message: `Server can not be reached` })
+            setErrorHandler({ hasError: true, message: `A Server Error occurred. Please try again later.` })
         }
     }
 }
@@ -65,7 +65,7 @@ export const deleteCurrentPick = (_id, setErrorHandler) => async (dispatch) => {
             dispatch({ type: AUTH_ERROR, message: error?.response?.data });
             setErrorHandler({ hasError: true, message: error?.response?.data });
         } else {
-            setErrorHandler({ hasError: true, message:`Server can not be reached.`})
+            setErrorHandler({ hasError: true, message:`A Server Error occurred. Please try again later.`})
         }
     }
 }

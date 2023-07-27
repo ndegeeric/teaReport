@@ -36,7 +36,7 @@ const PickingsAnalysis = () => {
     <Box p={2} flex={1} bgcolor='#fcfcfc' flexDirection='column' borderRadius='15px'>
         <Stack direction='row' flex={1} alignItems='center' justifyContent='space-between' >
             <Typography fontSize={18} fontWeight={600} color='#11142d'>Monthly Totals</Typography>
-            <Stack direction='row' fontSize={12} fontWeight={400} color='#11142d'> 
+            <Stack position='relative' direction='row' fontSize={12} fontWeight={400} color='#11142d'> 
             <DatePicker
             className='cursor-pointer outline-none'
             // id={startDateId}
@@ -50,7 +50,7 @@ const PickingsAnalysis = () => {
             // locale={selectLocale(locale)}
             // customInput={<CustomInput />}
             />
-                <ExpandMore sx={{ fontSize: 16,  }} />
+                <ExpandMore sx={{ fontSize: 16 }} />
             </Stack>
         </Stack>
         <BarChart

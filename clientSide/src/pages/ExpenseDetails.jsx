@@ -42,7 +42,7 @@ const ExpenseDetails = () => {
   return (
     <>
     <ErrorAuth errorHandler={errorHandler} setErrorHandler={setErrorHandler} />
-    <div className='pt-10 md:pt-5 md:px-10'>
+    <div className='p-5 md:px-10'>
     {
       <DetailsCard data={ data } handlePaid={ handlePaid } handleEdit={ handleEdit } handleDelete={ handleDelete } />
     }

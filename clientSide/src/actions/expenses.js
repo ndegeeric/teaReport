@@ -12,7 +12,7 @@ export const fetchExpense = (id, setErrorHandler) => async(dispatch) => {
             dispatch({ type: AUTH_ERROR, message: error?.response?.data });
             setErrorHandler({ hasError: true, message: error?.response?.data });
         } else {
-            setErrorHandler({ hasError: true, message: `Server can not be reached.` });
+            setErrorHandler({ hasError: true, message: `A Server Error occurred. Please try again later.` });
         }
     }
 }
@@ -27,7 +27,9 @@ export const fetchExpenses = (setErrorHandler) => async(dispatch) => {
             // console.error(error.response)
             dispatch({ type: AUTH_ERROR, message: error?.response?.data });
             setErrorHandler({ hasError: true, message: error?.response?.data });
-        } 
+        } else {
+            setErrorHandler({ hasError: true, message: `A Server Error occurred. Please try again later.` })
+        }
     }
 }
 
@@ -43,7 +45,7 @@ export const createExpense = (expenseData, setErrorHandler) => async(dispatch) =
             dispatch({ type: AUTH_ERROR, message: error?.response?.data });
             setErrorHandler({ hasError: true, message: error?.response?.data });
         } else {
-            setErrorHandler({ hasError: true, message: `Server can not be reached` });
+            setErrorHandler({ hasError: true, message: `A Server Error occurred. Please try again later.` });
         }
     }
 }
@@ -59,7 +61,7 @@ export const updateExpense = (expenseData, _id, setErrorHandler) => async(dispat
             dispatch({ type: AUTH_ERROR, message: error?.response?.data });
             setErrorHandler({ hasError: true, message: error?.response?.data });
         } else {
-            setErrorHandler({ hasError: true, message: `Server can not be reached.` });
+            setErrorHandler({ hasError: true, message: `A Server Error occurred. Please try again later.` });
         }
     }
 }
@@ -73,7 +75,7 @@ export const deleteExpense = (id, setErrorHandler) => async (dispatch) => {
             dispatch({ type: AUTH_ERROR, message: error?.response?.data });
             setErrorHandler({ hasError: true, message: error?.response?.data });
         } else {
-            setErrorHandler({ hasError: true, message: `Server can not be reached.` });
+            setErrorHandler({ hasError: true, message: `A Server Error occurred. Please try again later.` });
         }
     }
 }

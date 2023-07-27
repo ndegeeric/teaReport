@@ -39,7 +39,7 @@ export const signUp = (formData, navigate, setErrorHandler) => async(dispatch) =
         })
         setErrorHandler({ hasError: true, message: error?.response?.data?.message });
        } else {
-        setErrorHandler({ hasError: true, message: `Server can not be reached.` })
+        setErrorHandler({ hasError: true, message: `The Server can not be reached.` })
        }
     }
 }

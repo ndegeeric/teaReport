@@ -59,7 +59,7 @@ const Navbar = ({ activeLink, setActiveLink, notification, setNotification }) =>
         return (
             <>
             { showMobileMenu ? (
-            <div className='absolute right-0 w-screen sm:w-[50%] md:hidden max-sm:h-[86%] overflow-hidden text-white  bg-gray-700 z-[100] text-right text-4xl p-3'>
+            <div className='absolute right-0 w-screen sm:w-[50%] md:hidden h-full overflow-hidden text-white  bg-gray-700 z-[100] text-right text-4xl p-3'>
               <AsideLink title='Overview' activeLink={activeLink} setActiveLink={setActiveLink} setShowMobileMenu={setShowMobileMenu} showMobileMenu={showMobileMenu} to={'/dashboard'} addStyles={'justify-end'} />
               <AsideLink title='Pickings' activeLink={activeLink} setActiveLink={setActiveLink} setShowMobileMenu={setShowMobileMenu} showMobileMenu={showMobileMenu} to={'/pickings'} addStyles={'justify-end'} />
               <AsideLink title='Expenses' activeLink={activeLink} setActiveLink={setActiveLink} setShowMobileMenu={setShowMobileMenu} showMobileMenu={showMobileMenu} to={'/expenses'} addStyles={'justify-end'} />
