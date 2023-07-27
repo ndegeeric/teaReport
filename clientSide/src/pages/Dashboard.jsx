@@ -3,15 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchExpenses } from '../actions/expenses';
 import { getMonthlyPicks } from '../actions/analysis';
 import { getPicks } from '../actions/picking';
-import {  ArrowCircleDownOutlined, ArrowCircleUpOutlined } from '@mui/icons-material';
 
 import { Feature,  PieChart, PickingsAnalysis, Loading } from '../components';
 import { ErrorAuth } from '../components';
 
 const Dashboard = () => {
   
-  const [isIncrease, setIsIncrease] = useState(false);
   const dispatch =useDispatch();
+  const [isMonthlyGain, setIsMonthlyGain] = useState(true);
   const [errorHandler, setErrorHandler] = useState({ hasError: false, message: '' });
   const analysis = useSelector(state => state.analysis) || {};
   const rangeData  = useSelector( state =>state?.rangeData.map(item => item.weight));
@@ -45,17 +44,18 @@ const Dashboard = () => {
   
   const monthlyPercentageIncome = Math.floor((monthlyPicks * 21)/((monthlyPicks * 21) + monthlyExpenses)* 100) || 0;
   const annualPercentageIncome = Math.floor((annualPicks * 21)/((annualPicks * 21) + annualExpenses)* 100) || 0;
-  const monthlyValue = monthlyPicks * 21 > monthlyExpenses ? new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(monthlyPicks * 21) : new Intl.NumberFormat().format( monthlyExpenses );
-  const annualValue = annualPicks * 21 > annualExpenses ? new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(annualPicks * 21) : new Intl.NumberFormat().format( annualExpenses );
+  const monthlyValue = monthlyPicks * 21 > monthlyExpenses ? new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(monthlyPicks * 21).replace("KSH", " ").trim() : new Intl.NumberFormat(undefined, {style: 'currency', currency: 'ksh'}).format( monthlyExpenses ).replace("KSH", " ").trim();
+  const annualValue = annualPicks * 21 > annualExpenses ? new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(annualPicks * 21).replace("KSH", " ").trim() : new Intl.NumberFormat(undefined, {style: 'currency', currency: 'ksh'}).format( annualExpenses ).replace("KSH", " ").trim();
   
-  useEffect(()=>{
+  // console.log('test' + monthlyValue, monthlyExpenses);
+  useEffect(()=> {
     dispatch(getPicks(setErrorHandler));
     dispatch(fetchExpenses(setErrorHandler));
     dispatch(getMonthlyPicks(setErrorHandler));  
   },[dispatch]);
 
   const isExpense = true;
-
+  
   return (
     <>
     { !analysis.data ? <Loading /> : (
@@ -81,11 +81,11 @@ const Dashboard = () => {
         </div>
         <div className="grid grid-rows-2  h-full">
             <div className=" max-h-full">
-              <PieChart picks={ monthlyPicks * 12 } title='Monthly Income Vs Expenses' value={ monthlyValue } series={[  monthlyPercentageIncome, 100 - monthlyPercentageIncome]} colors={[ '#a4f264', '#ff7a63' ]} />
+              <PieChart monthlyExpenses={monthlyExpenses} monthlyPicks={monthlyPicks} title='Monthly Income Vs Expenses' value={ monthlyValue } series={[  monthlyPercentageIncome, 100 - monthlyPercentageIncome]} colors={[ '#a4f264', '#ff7a63' ]} />
             </div>
             <div className=" max-h-full">
             <div className=" max-h-full">
-              <PieChart picks={ annualPicks * 12 } title='Annual Income Vs Expenses' value={ annualValue } series={[ annualPercentageIncome, 100 - annualPercentageIncome]} colors={[ '#a4f264', '#ff7a63' ]} />
+              <PieChart  annualExpenses={annualExpenses} annualPicks={annualPicks} title='Annual Income Vs Expenses' value={ annualValue } series={[ annualPercentageIncome, 100 - annualPercentageIncome]} colors={[ '#a4f264', '#ff7a63' ]} />
             </div>
             </div>
         </div>
