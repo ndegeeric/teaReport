@@ -29,8 +29,8 @@ const Navbar = ({ activeLink, setActiveLink, notification, setNotification }) =>
         } else {
             logout(navigate);
         }
-     //eslint-disable-next-line
-    },[location]);
+    //  eslint-disable-next-line
+    },[location, navigate]);
     
     
     const MobileMenu = () => {
