@@ -22,7 +22,7 @@ const Expenses = () => {
   const expenses = useSelector( state =>  state.expenses );
   // console.log(expenses);
   return (
-    <div className='w-screen md:pl-5 p-3 md:h-[570px] overflow-y-auto'>
+    <div className='w-screen md:w-full p-3 text-sm md:text-lg md:h-[570px] overflow-y-auto'>
       <ErrorAuth errorHandler={errorHandler} setErrorHandler={setErrorHandler} />
       <Table
         tableHeader={tHeader}
