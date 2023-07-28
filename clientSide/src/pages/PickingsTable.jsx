@@ -23,7 +23,7 @@ const PickingsTable = ({ setCurrentId, setShowForm,  bodyData }) => {
     <>
     {
     !bodyData ? <Loading /> :
-    <div className='sm:m-7 m-1 w-full sm:text-[16px] text-[12px] overflow-auto md:overflow-y-auto md:h-[480px]'>
+    <div className='sm:m-7 m-3 w-full sm:text-[16px] text-[12px] overflow-auto md:overflow-y-auto md:h-[480px]'>
         <table className='w-full relative'>
             <thead><tr className=' w-full text-white bg-sky-600 py-2 sticky top-0'>{tableHeader}</tr></thead>
             <tbody>

@@ -7,7 +7,7 @@ const Table = ({ tableHeader, bodyData }) => {
    
   return (
     <>
-        <table className='w-[95%] mt-7'>
+        <table className=' mt-7'>
             <thead><tr className='bg-blue-400 text-white sticky top-0 '>{ tableHeader }</tr></thead>
             <tbody className='' >
             {
