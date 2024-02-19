@@ -33,7 +33,7 @@ const PickingsTable = ({ setCurrentId, setShowForm,  bodyData }) => {
                         <td className='text-right py-1 px-1.5' ><Link to={`/pickingDetails/${item._id}`}>{i+1}</Link></td>
                         <td className='text-right py-1 px-1.5'><Link to={`/pickingDetails/${item._id}`}>{dateFormatter(item.createdAt)}</Link></td>
                         <td className='text-right py-1 px-1.5'><Link to={`/pickingDetails/${item._id}`}>{item.weight}</Link></td>
-                        <td className='text-right py-1 px-7 md:p-50'><Link to={`/pickingDetails/${item._id}`}>{(item.weight*12).toFixed(2)}</Link></td>
+                        <td className='text-right py-1 px-7 md:p-50'><Link to={`/pickingDetails/${item._id}`}>{(item.weight*13).toFixed(2)}</Link></td>
                         {/* <td className='text-center py-1 px-1.5'> */}
                           {/* <button onClick={()=>dispatch(deleteCurrentPick(item._id))}>delete</button> */}
                         {/* </td> */}
