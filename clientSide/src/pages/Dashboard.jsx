@@ -6,6 +6,7 @@ import { getPicks } from '../actions/picking';
 
 import { Feature,  PieChart, PickingsAnalysis, Loading } from '../components';
 import { ErrorAuth } from '../components';
+import { currencyFormatter } from '../../utils';
 
 const Dashboard = () => {
   
@@ -64,9 +65,9 @@ const Dashboard = () => {
       <div className="grid md:grid-cols-[3fr_minmax(auto,_1fr)] p-3 ">
         <div className="grid md:grid-rows-[1fr_minmax(auto,_2.19fr),1fr] h-full">
           <div className='grid grid-row-1 md:grid-cols-3 gap-2 items-center justify-center  md:gap-4 pb-3'>
-            <Feature subsValue={`Monthly`} value={` ${ new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(monthlyPicks) }`}  title={'Monthly Picked'} percentage={ change } addStyles={'bg-sky-50'} />
-            <Feature title='Monthly Income' subsValue='monthly' value={` ${ new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(monthlyPicks * 21) }`} percentage={ incomeChange } addStyles={'bg-green-50'} />
-            <Feature isExpense={isExpense} subsValue={`Monthly`} value={` ${ new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(monthlyExpenses) }`} title={'Monthly Expenses'} percentage={ expenseChange } addStyles={'bg-orange-50'} />
+            <Feature subsValue={`Monthly`} value={currencyFormatter(parseInt(monthlyPicks))}  title={'Monthly Picked'} percentage={ change } addStyles={'bg-sky-50'} />
+            <Feature title='Monthly Income' subsValue='monthly' value={currencyFormatter(parseInt(monthlyPicks) * 25)} percentage={ incomeChange } addStyles={'bg-green-50'} />
+            <Feature isExpense={isExpense} subsValue={`Monthly`} value={currencyFormatter(parseInt(monthlyExpenses))} title={'Monthly Expenses'} percentage={ expenseChange } addStyles={'bg-orange-50'} />
           </div>
           <div className="max-h-[280px] overflow-auto mb-2">
             <PickingsAnalysis
@@ -74,9 +75,9 @@ const Dashboard = () => {
             />
           </div>
           <div className="grid grid-row-1 md:grid-cols-3 gap-2 items-center justify-center  md:gap-4 pb-3">
-            <Feature subsValue={`Year to Date`} value={` ${ new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(annualPicks) }`} title={`Annual Picked`} percentage={ annualChange } addStyles={'bg-sky-50'} />
-            <Feature title='Expected Bonus' subsValue='year to date' value={` ${ new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(annualPicks * 44) }`} percentage={ bonusChange } addStyles={`bg-green-50`} />
-            <Feature isExpense={isExpense}  title='Annual Expenses' subsValue='year to date' value={` ${ new Intl.NumberFormat(undefined, {style: 'currency', currency: 'KSH'}).format(annualExpenses) }`} percentage={ annualExpenseChange } addStyles={`bg-orange-50`} />
+            <Feature subsValue={`Year to Date`} value={currencyFormatter(parseInt(annualPicks))} title={`Annual Picked`} percentage={ annualChange } addStyles={'bg-sky-50'} />
+            <Feature title='Expected Bonus' subsValue='year to date' value={currencyFormatter(parseInt(annualPicks) * 50)} percentage={ bonusChange } addStyles={`bg-green-50`} />
+            <Feature isExpense={isExpense}  title='Annual Expenses' subsValue='year to date' value={currencyFormatter(parseInt(annualExpenses))} percentage={ annualExpenseChange } addStyles={`bg-orange-50`} />
           </div>
         </div>
         <div className="grid grid-rows-2  h-full">
