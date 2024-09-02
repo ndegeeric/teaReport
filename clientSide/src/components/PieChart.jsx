@@ -6,11 +6,11 @@ const PieChart = ({ title, value, series, colors, monthlyExpenses, monthlyPicks,
   
 
   return (
-    <Box pl={3.5} position={'relative'}>
-      <Typography marginBottom='10px' fontSize={14} color='#808191'>{ title }</Typography>
+    <Box pl={3.5} position={'relative'} >
+      <Typography className='text-center lg:text-justify ' marginBottom='10px' fontSize={14} color='#808191'>{ title }</Typography>
       <Stack direction='column' display={'flex'} justifyContent={'center'} alignItems={'center'}>
         {/* <Typography  position={'absolute'} top={'50%'} left={'50%'} fontSize={24} color='#11142d' fontWeight={700} >{ value }</Typography> */}
-        <p className={`absolute top-[50%] text-md font-[700] ${ monthlyExpenses > (monthlyPicks * 21) || annualExpenses > (annualPicks * 21) ? `text-[#ff7a63]` : 'text-[#a4f264]' }`}>{ value }</p>
+        <p className={`absolute top-[50%] text-md font-[700] ${ monthlyExpenses > (monthlyPicks * 25) || annualExpenses > (annualPicks * 25) ? `text-[#ff7a63]` : 'text-[#a4f264]' }`}>{ value }</p>
         <ReactApexChart 
             options={{
               chart: { type: 'donut'},
