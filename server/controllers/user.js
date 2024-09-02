@@ -32,7 +32,7 @@ export const signup = async(req, res) => {
 
         const token = jwt.sign({ email: newUser.email, id: newUser._id }, secret, { expiresIn: '1h'})
         
-        res.status(404).json({message: `Temporally disabled`});
+        res.status(404).json({message: `Temporarily disabled`});
     } catch (error) {
         res.status(500).json({ message: `Server error, contact the administrator`});
     }
