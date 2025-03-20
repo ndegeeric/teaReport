@@ -36,7 +36,9 @@ const Form = ({ setActiveLink }) => {
       dispatch(updatePick(pickData, id, setErrorHandler));
     }else{
       dispatch(createPick(pickData, setErrorHandler));
-      dispatch(createExpense({  expenseType: 'Picking Wage', narration: `${pickData.weight} kgs @ Ksh 13/kg.`, amount: pickData.weight * 13, status: undefined}, setErrorHandler))
+
+      dispatch(createExpense({  expenseType: 'Picking Wage', narration: `${pickData.weight} kgs @ Ksh 15/kg.`, amount: pickData.weight * 15, status: undefined}, setErrorHandler))
+
     }
     setPickData(initialState);
     setActiveLink('Pickings');
